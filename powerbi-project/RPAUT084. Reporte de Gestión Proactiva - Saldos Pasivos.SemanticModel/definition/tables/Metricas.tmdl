@@ -1,0 +1,40 @@
+table Metricas
+	isHidden
+	lineageTag: 733e071a-a691-4971-9fae-bba2e2f702ad
+
+	column Metrica
+		dataType: string
+		isHidden
+		lineageTag: c4151708-9f36-4fb9-89ff-e0a3627fa8ec
+		summarizeBy: none
+		sourceColumn: Metrica
+		sortByColumn: Orden
+
+		changedProperty = IsHidden
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Orden
+		dataType: string
+		lineageTag: 444d2571-ec6a-4269-aae2-5c307fdb48c4
+		summarizeBy: none
+		sourceColumn: Orden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Metricas = m
+		mode: import
+		source =
+				let
+				    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCk7MSclX0lEyVIrViVYKVHDOyUzNK0ktBgoZw4RKgSKJIBETsEhIYnGiQkB+XkpqUWJKIlDYSCk2FgA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Metrica = _t, Orden = _t])
+				in
+				    Origen
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

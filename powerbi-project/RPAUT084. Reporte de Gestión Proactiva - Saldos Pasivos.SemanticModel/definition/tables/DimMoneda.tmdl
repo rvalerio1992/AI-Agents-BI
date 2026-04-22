@@ -1,0 +1,33 @@
+table DimMoneda
+	lineageTag: 46cec6e7-57cf-456e-9ec5-87c2adc016c9
+
+	column COD_MONEDA
+		dataType: int64
+		formatString: 0
+		lineageTag: d601a985-fe57-47d9-8013-54d96acddf71
+		summarizeBy: none
+		sourceColumn: COD_MONEDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column MONEDA
+		dataType: string
+		lineageTag: 18eb0e24-5909-44ef-9dc3-98aaf093a0e5
+		summarizeBy: none
+		sourceColumn: MONEDA
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimMoneda = m
+		mode: import
+		queryGroup: Dimensiones
+		source =
+				let
+				    Source = Sql.Database("synw-modeling-prod-westus2-001-ondemand.sql.azuresynapse.net", "gold", [Query="SELECT #(lf)    COD_MONEDA,#(lf)    DESCRIPCION AS MONEDA#(lf)FROM #(lf)    dbo.DimMoneda#(lf)WHERE #(lf)    COD_MONEDA IN (1, 2)#(lf)            "])
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

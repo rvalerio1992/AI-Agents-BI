@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "b03a0013b760a403e49c",
+  "position": {
+    "x": 8.5446105666270746,
+    "y": 405,
+    "z": 27500,
+    "height": 486.28428927680795,
+    "width": 1225.4364089775561,
+    "tabOrder": 12000
+  },
+  "visualGroup": {
+    "displayName": "Segmentos",
+    "groupMode": "ScaleMode"
+  }
+}

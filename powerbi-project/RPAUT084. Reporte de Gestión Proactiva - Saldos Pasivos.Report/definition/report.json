@@ -1,0 +1,200 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.2.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY24SU06",
+      "reportVersionAtImport": {
+        "visual": "1.8.92",
+        "report": "2.0.92",
+        "page": "1.3.92"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "Promerica110300206220072439.json",
+      "reportVersionAtImport": {
+        "visual": "1.8.92",
+        "report": "2.0.92",
+        "page": "1.3.92"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "26cdb81c6bdb7c81dcce",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FctProductos"
+              }
+            },
+            "Property": "TIPO_PRODUCTO"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "f",
+              "Entity": "FctProductos",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "f"
+                          }
+                        },
+                        "Property": "TIPO_PRODUCTO"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'CERTIFICADO'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'CUENTA DE EFECTIVO'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          },
+          "visible": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "publicCustomVisuals": [
+    "Multi_target_KPI",
+    "payPalKPIDonutChart55A431AB15A540ED924ACD72ED8D259F"
+  ],
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY24SU06",
+          "path": "BaseThemes/CY24SU06.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "Equis8184439589822747.png",
+          "path": "Equis8184439589822747.png",
+          "type": "Image"
+        },
+        {
+          "name": "filtro_claro3756664978382789.png",
+          "path": "filtro_claro3756664978382789.png",
+          "type": "Image"
+        },
+        {
+          "name": "filtro_osc6905241527383745.png",
+          "path": "filtro_osc6905241527383745.png",
+          "type": "Image"
+        },
+        {
+          "name": "Fondo_de_Dashboard5773886765734888.bmp",
+          "path": "Fondo_de_Dashboard5773886765734888.bmp",
+          "type": "Image"
+        },
+        {
+          "name": "Fondo_Exploracion39750640013797156.bmp",
+          "path": "Fondo_Exploracion39750640013797156.bmp",
+          "type": "Image"
+        },
+        {
+          "name": "Fondo_Top_Variaciones8236016529890897.bmp",
+          "path": "Fondo_Top_Variaciones8236016529890897.bmp",
+          "type": "Image"
+        },
+        {
+          "name": "Promerica110300206220072439.json",
+          "path": "Promerica110300206220072439.json",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "isPersistentUserStateDisabled": true,
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "useEnhancedTooltips": true,
+    "disableFilterPaneSearch": true,
+    "useDefaultAggregateDisplayName": true,
+    "queryLimitOption": "None",
+    "customMemoryLimit": "1048576",
+    "customTimeoutLimit": "225"
+  },
+  "slowDataSourceSettings": {
+    "isCrossHighlightingDisabled": false,
+    "isSlicerSelectionsButtonEnabled": false,
+    "isFilterSelectionsButtonEnabled": false,
+    "isFieldWellButtonEnabled": false,
+    "isApplyAllButtonEnabled": false
+  }
+}

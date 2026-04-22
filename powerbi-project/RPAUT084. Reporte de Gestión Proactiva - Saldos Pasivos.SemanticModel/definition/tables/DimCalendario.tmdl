@@ -1,0 +1,174 @@
+table DimCalendario
+	lineageTag: c22bd7ac-e75f-40c0-8834-85ed7e71297f
+
+	column Fecha
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: bc95d19d-8cb7-4cf2-b13a-91a8c9488673
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		variation Variación
+			isDefault
+			relationship: 6d060b73-0adc-4b0e-bb94-e4c0e907c197
+			defaultHierarchy: LocalDateTable_c38c851c-baf1-425a-b46b-6fc5b8e62172.'Jerarquía de fechas'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Año
+		dataType: int64
+		formatString: 0
+		lineageTag: 07ac48a4-82f9-420c-b668-c62e5d54bb1c
+		summarizeBy: sum
+		sourceColumn: Año
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: acf1a5a0-bacf-462d-a81a-ebb43c437557
+		summarizeBy: sum
+		sourceColumn: Mes
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nombre Mes'
+		dataType: string
+		lineageTag: c567ea3e-edc6-458c-8d82-199850ec7a51
+		summarizeBy: none
+		sourceColumn: Nombre Mes
+		sortByColumn: Mes
+
+		changedProperty = IsHidden
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		dataType: string
+		lineageTag: 197098cd-f059-4e8e-b5b1-4b54aebfe0ce
+		summarizeBy: none
+		sourceColumn: Trimestre
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Día
+		dataType: int64
+		formatString: 0
+		lineageTag: 63d015e3-8f0d-4b95-8ad6-f063206997d5
+		summarizeBy: sum
+		sourceColumn: Día
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Día de la Semana'
+		dataType: int64
+		formatString: 0
+		lineageTag: af963bc9-dd8f-41fe-81a9-23555539eabf
+		summarizeBy: sum
+		sourceColumn: Día de la Semana
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nombre Día Semana'
+		dataType: string
+		lineageTag: 731d8212-dcf6-438d-9f41-4f9abcfa5628
+		summarizeBy: none
+		sourceColumn: Nombre Día Semana
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Semana del Año'
+		dataType: int64
+		formatString: 0
+		lineageTag: 26c87743-b97b-4cda-af60-fb35e4cc61b3
+		summarizeBy: sum
+		sourceColumn: Semana del Año
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Año-Mes
+		dataType: string
+		lineageTag: 59c99670-ba3a-42c0-8b2b-274e41c69f7e
+		summarizeBy: none
+		sourceColumn: Año-Mes
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Es Fin de Semana'
+		dataType: string
+		lineageTag: 103e3957-543d-46c1-be29-8a59233ae465
+		summarizeBy: none
+		sourceColumn: Es Fin de Semana
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimCalendario = m
+		mode: import
+		queryGroup: Dimensiones
+		source =
+				let
+				    // Fecha inicio: 1 de enero del año anterior
+				    FechaInicio = #date(Date.Year(DateTime.LocalNow()) - 1, 1, 1),
+				
+				    // Fecha final: ayer
+				    FechaFin = Date.AddDays(Date.From(DateTime.LocalNow()), -1),
+				
+				    // Número de días
+				    NumeroDias = Duration.Days(FechaFin - FechaInicio) + 1,
+				
+				    // Lista de fechas
+				    ListaFechas = List.Dates(FechaInicio, NumeroDias, #duration(1,0,0,0)),
+				
+				    // Tabla de fechas
+				    TablaCalendario = Table.FromList(ListaFechas, Splitter.SplitByNothing(), {"Fecha"}),
+				
+				    // Tipo de dato
+				    TipoCambiado = Table.TransformColumnTypes(TablaCalendario,{{"Fecha", type date}}),
+				
+				    // Atributos de fecha
+				    Año = Table.AddColumn(TipoCambiado, "Año", each Date.Year([Fecha]), Int64.Type),
+				    Mes = Table.AddColumn(Año, "Mes", each Date.Month([Fecha]), Int64.Type),
+				    NombreMesCorto = Table.AddColumn(Mes, "Nombre Mes", each Text.Upper(Text.Start(Date.ToText([Fecha], "MMM", "es-ES"), 3)), type text),
+				    Trimestre = Table.AddColumn(NombreMesCorto, "Trimestre", each "Q" & Number.ToText(Date.QuarterOfYear([Fecha])), type text),
+				    Día = Table.AddColumn(Trimestre, "Día", each Date.Day([Fecha]), Int64.Type),
+				    DíaSemana = Table.AddColumn(Día, "Día de la Semana", each Date.DayOfWeek([Fecha]) + 1, Int64.Type),
+				    NombreDíaSemana = Table.AddColumn(DíaSemana, "Nombre Día Semana", each Text.Upper(Text.Start(Date.ToText([Fecha], "ddd", "es-ES"), 3)), type text),
+				    SemanaAño = Table.AddColumn(NombreDíaSemana, "Semana del Año", each Date.WeekOfYear([Fecha]), Int64.Type),
+				    AñoMes = Table.AddColumn(SemanaAño, "Año-Mes", each Text.PadStart(Text.From([Año]), 4, "0") & "-" & Text.PadStart(Text.From([Mes]), 2, "0"), type text),
+				    EsFinDeSemana = Table.AddColumn(AñoMes, "Es Fin de Semana", each if [Día de la Semana] > 5 then "Sí" else "No", type text),
+				
+				    // Formato nombre mes
+				    #"Texto en minúsculas" = Table.TransformColumns(EsFinDeSemana,{{"Nombre Mes", Text.Lower, type text}}),
+				    #"Poner En Mayúsculas Cada Palabra" = Table.TransformColumns(#"Texto en minúsculas",{{"Nombre Mes", Text.Proper, type text}})
+				in
+				    #"Poner En Mayúsculas Cada Palabra"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

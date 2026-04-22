@@ -1,0 +1,76 @@
+table DimPromotor
+	lineageTag: fa610a9f-4edb-4b7c-990f-38e0c7ad30c3
+
+	column COD_PROMOTOR
+		dataType: string
+		lineageTag: 1bdb1675-77b9-424f-b597-61f294638c0e
+		summarizeBy: none
+		sourceColumn: COD_PROMOTOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column DIRECCION
+		dataType: string
+		lineageTag: a9fcba8a-181a-48ad-8ddd-f1d435ecda21
+		summarizeBy: none
+		sourceColumn: DIRECCION
+
+		annotation SummarizationSetBy = Automatic
+
+	column GERENCIA
+		dataType: string
+		lineageTag: 5fe90355-ffdf-43c3-a936-3351b9e46498
+		summarizeBy: none
+		sourceColumn: GERENCIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column UNIDAD
+		dataType: string
+		lineageTag: 25f5a10b-a8fb-4b17-9e69-8e6dac98ca06
+		summarizeBy: none
+		sourceColumn: UNIDAD
+
+		annotation SummarizationSetBy = Automatic
+
+	column AREA
+		dataType: string
+		lineageTag: ccee2148-8807-4f44-b7f6-79a3482c044c
+		summarizeBy: none
+		sourceColumn: AREA
+
+		annotation SummarizationSetBy = Automatic
+
+	column PROMOTOR
+		dataType: string
+		lineageTag: 8bfd2e6e-d01d-46f9-9efe-1d4f3c157fed
+		summarizeBy: none
+		sourceColumn: PROMOTOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column CARTERA
+		dataType: string
+		lineageTag: f72435ea-fa9c-4908-ae19-a80e3cc946bb
+		summarizeBy: none
+		sourceColumn: CARTERA
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimPromotor = m
+		mode: import
+		queryGroup: Dimensiones
+		source =
+				let
+				   // Data Steward: Nancy Rebeca García Ureña
+				   Source = Sql.Database("synw-modeling-prod-westus2-001-ondemand.sql.azuresynapse.net", "gold", [Query="SELECT #(lf)    *#(lf)FROM #(lf)    dbo.dimpromotor"]),
+				    #"Texto recortado" = Table.TransformColumns(Source,{{"COD_PROMOTOR", Text.Trim, type text}}),
+				    #"Duplicados quitados" = Table.Distinct(#"Texto recortado", {"COD_PROMOTOR"}),
+				    #"Valor reemplazado" = Table.ReplaceValue(#"Duplicados quitados","SIN DIRECCION","TESORERIA",Replacer.ReplaceText,{"DIRECCION"})
+				in
+				  #"Valor reemplazado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

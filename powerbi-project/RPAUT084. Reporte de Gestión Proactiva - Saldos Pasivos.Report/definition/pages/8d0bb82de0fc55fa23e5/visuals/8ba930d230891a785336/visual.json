@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "8ba930d230891a785336",
+  "position": {
+    "x": 8.499575035422108,
+    "y": 395.22098647832371,
+    "z": 24500,
+    "height": 513.8207315249357,
+    "width": 1225.5682177747624,
+    "tabOrder": 13000
+  },
+  "visualGroup": {
+    "displayName": "Rango Tasa",
+    "groupMode": "ScaleMode"
+  },
+  "isHidden": true
+}

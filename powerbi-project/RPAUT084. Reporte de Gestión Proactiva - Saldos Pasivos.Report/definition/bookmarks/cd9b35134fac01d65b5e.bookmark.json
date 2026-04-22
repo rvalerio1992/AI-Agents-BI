@@ -1,0 +1,3923 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Por Rango Tasa",
+  "name": "cd9b35134fac01d65b5e",
+  "options": {
+    "targetVisualNames": [
+      "d9312b90cf5321c81e8d"
+    ],
+    "suppressData": true
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "8d0bb82de0fc55fa23e5",
+    "filters": {
+      "byExpr": [
+        {
+          "name": "26cdb81c6bdb7c81dcce",
+          "type": "Categorical",
+          "filter": {
+            "Version": 2,
+            "From": [
+              {
+                "Name": "f",
+                "Entity": "FctProductos",
+                "Type": 0
+              }
+            ],
+            "Where": [
+              {
+                "Condition": {
+                  "In": {
+                    "Expressions": [
+                      {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "f"
+                            }
+                          },
+                          "Property": "TIPO_PRODUCTO"
+                        }
+                      }
+                    ],
+                    "Values": [
+                      [
+                        {
+                          "Literal": {
+                            "Value": "'CERTIFICADO'"
+                          }
+                        }
+                      ],
+                      [
+                        {
+                          "Literal": {
+                            "Value": "'CUENTA DE EFECTIVO'"
+                          }
+                        }
+                      ]
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "expression": {
+            "Column": {
+              "Expression": {
+                "SourceRef": {
+                  "Entity": "FctProductos"
+                }
+              },
+              "Property": "TIPO_PRODUCTO"
+            }
+          },
+          "howCreated": 1
+        }
+      ]
+    },
+    "sections": {
+      "8d0bb82de0fc55fa23e5": {
+        "visualContainers": {
+          "496fcf77a48564a7ad53": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "f58c0695d3280b4495d0",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Parámetros"
+                        }
+                      },
+                      "Property": "Titulo Reporte (Panel)"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "d9312b90cf5321c81e8d": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "4df17bac7f7fdb170958",
+                  "type": "TopN",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "subquery",
+                        "Expression": {
+                          "Subquery": {
+                            "Query": {
+                              "Version": 2,
+                              "From": [
+                                {
+                                  "Name": "f",
+                                  "Entity": "FctProductos",
+                                  "Type": 0
+                                }
+                              ],
+                              "Select": [
+                                {
+                                  "Column": {
+                                    "Expression": {
+                                      "SourceRef": {
+                                        "Source": "f"
+                                      }
+                                    },
+                                    "Property": "FEC_CORTE"
+                                  },
+                                  "Name": "field"
+                                }
+                              ],
+                              "OrderBy": [
+                                {
+                                  "Direction": 2,
+                                  "Expression": {
+                                    "Aggregation": {
+                                      "Expression": {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "f"
+                                            }
+                                          },
+                                          "Property": "FEC_CORTE"
+                                        }
+                                      },
+                                      "Function": 4
+                                    }
+                                  }
+                                }
+                              ],
+                              "Top": 1
+                            }
+                          }
+                        },
+                        "Type": 2
+                      },
+                      {
+                        "Name": "f",
+                        "Entity": "FctProductos",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "In": {
+                            "Expressions": [
+                              {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Source": "f"
+                                    }
+                                  },
+                                  "Property": "FEC_CORTE"
+                                }
+                              }
+                            ],
+                            "Table": {
+                              "SourceRef": {
+                                "Source": "subquery"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "FEC_CORTE"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "93d6845fd158836356e0",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Saldo"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Actual"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "2c298dab9fe585085497": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "6562e9cd353dc37c6c1d",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "1_Complete_%_FinMes"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "1_Complete_%_FinMes"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "93a509e1935596ca03b4": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "4d23ea98104a6aea006b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Etiqueta Meta"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "a5c4048015cd5f230ca5": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "f07066116c79346476d9",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "1_Target_Valor_FinMes"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "1_Target_Valor_FinMes"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "db467a512f7a6a1f5f14": {
+            "singleVisual": {
+              "visualType": "image",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "bb3249a0217d36ba2999": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "d526892c4191f7959bf0": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "f80672223a42c38e5950",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL_1"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Basic'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL_1"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "bc30aa728104667f3c8b": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "0d67d5831e84231c01d8",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL_2"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Basic'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL_2"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "bc3c1f5da20a71025e7f": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "ee65c26d710100a0ae07",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimMoneda"
+                        }
+                      },
+                      "Property": "MONEDA"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Basic'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimMoneda"
+                        }
+                      },
+                      "Property": "MONEDA"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "c13c8d30c4446f373273": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "55b0f1b5529788259dc9",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "RANGO_TASA"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Basic'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "RANGO_TASA"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "RANGO_TASA"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "8ba823dc69a14f738f86": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "a560abff242e009c6adb",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimPromotor"
+                        }
+                      },
+                      "Property": "PROMOTOR"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimPromotor"
+                        }
+                      },
+                      "Property": "PROMOTOR"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "88d7c8a8d6f6732a62c5": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "60a89a1d60c9ed05903c",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimCliente"
+                        }
+                      },
+                      "Property": "NOMBRE"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimCliente"
+                        }
+                      },
+                      "Property": "NOMBRE"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimCliente"
+                        }
+                      },
+                      "Property": "NOMBRE"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "b87ee5c6ee4220aede00": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter5706474992fa5878d832",
+                  "type": "Categorical",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "d",
+                        "Entity": "DimCliente",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Not": {
+                            "Expression": {
+                              "In": {
+                                "Expressions": [
+                                  {
+                                    "Column": {
+                                      "Expression": {
+                                        "SourceRef": {
+                                          "Source": "d"
+                                        }
+                                      },
+                                      "Property": "TIPO_CLIENTE"
+                                    }
+                                  }
+                                ],
+                                "Values": [
+                                  [
+                                    {
+                                      "Literal": {
+                                        "Value": "null"
+                                      }
+                                    }
+                                  ],
+                                  [
+                                    {
+                                      "Literal": {
+                                        "Value": "'ND'"
+                                      }
+                                    }
+                                  ]
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimCliente"
+                        }
+                      },
+                      "Property": "TIPO_CLIENTE"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Basic'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimCliente"
+                        }
+                      },
+                      "Property": "TIPO_CLIENTE"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "28f58ce8096af8bb009a": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "9307dd2497eea455c0c0",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimPromotor"
+                        }
+                      },
+                      "Property": "UNIDAD"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimPromotor"
+                        }
+                      },
+                      "Property": "UNIDAD"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimPromotor"
+                        }
+                      },
+                      "Property": "UNIDAD"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "532010c75b4f248b080f": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "Filter434e37c44ae0b07068c0",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimTipoProducto"
+                        }
+                      },
+                      "Property": "TIPO_PRODUCTO"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "6481fd42078c4c5cc4a9",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "TIPO_PRODUCTO"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Basic'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "TIPO_PRODUCTO"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "TIPO_PRODUCTO"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "e7861f8206bae4dc7796": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "0896e9c816cdd227a16c",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimTipoProducto"
+                        }
+                      },
+                      "Property": "DESC_PRODUCTO"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Dropdown'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimTipoProducto"
+                        }
+                      },
+                      "Property": "DESC_PRODUCTO"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimTipoProducto"
+                        }
+                      },
+                      "Property": "DESC_PRODUCTO"
+                    }
+                  }
+                ]
+              },
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "37f35568d1050014a93d": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {},
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "2afa6fb0e48c5037c225": {
+            "filters": {
+              "byName": {
+                "Filter16b8a54febb579041c49": {
+                  "name": "Filter16b8a54febb579041c49",
+                  "type": "Advanced",
+                  "expression": {
+                    "Arithmetic": {
+                      "Left": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "⚙ Medidas"
+                            }
+                          },
+                          "Property": "Valor Actual"
+                        }
+                      },
+                      "Right": {
+                        "ScopedEval": {
+                          "Expression": {
+                            "Measure": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "⚙ Medidas"
+                                }
+                              },
+                              "Property": "Valor Actual"
+                            }
+                          },
+                          "Scope": [
+                            {
+                              "RoleRef": {
+                                "Role": "Columns"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "Operator": 3
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filterc7c6967837fa54873d01": {
+                  "name": "Filterc7c6967837fa54873d01",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor MoM"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filterf971de1ce6ef6fa727f0": {
+                  "name": "Filterf971de1ce6ef6fa727f0",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Mes Anterior"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filterae0f24b4b5d36c45d20e": {
+                  "name": "Filterae0f24b4b5d36c45d20e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Interanual"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filter8d42bb01ee19fd7318fa": {
+                  "name": "Filter8d42bb01ee19fd7318fa",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Cierre Año Anterior"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filter645ff2037b71697f8fcb": {
+                  "name": "Filter645ff2037b71697f8fcb",
+                  "type": "Advanced",
+                  "expression": {
+                    "Arithmetic": {
+                      "Left": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "⚙ Medidas"
+                            }
+                          },
+                          "Property": "Valor Actual"
+                        }
+                      },
+                      "Right": {
+                        "ScopedEval": {
+                          "Expression": {
+                            "Measure": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "⚙ Medidas"
+                                }
+                              },
+                              "Property": "Valor Actual"
+                            }
+                          },
+                          "Scope": [
+                            {
+                              "RoleRef": {
+                                "Role": "Rows"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "Operator": 3
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filterd6a6fc14f2912e2930a3": {
+                  "name": "Filterd6a6fc14f2912e2930a3",
+                  "type": "Advanced",
+                  "expression": {
+                    "Arithmetic": {
+                      "Left": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "⚙ Medidas"
+                            }
+                          },
+                          "Property": "Valor Actual"
+                        }
+                      },
+                      "Right": {
+                        "ScopedEval": {
+                          "Expression": {
+                            "Measure": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "⚙ Medidas"
+                                }
+                              },
+                              "Property": "Valor Actual"
+                            }
+                          },
+                          "Scope": []
+                        }
+                      },
+                      "Operator": 3
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filter3295ec230e5fef01e1c1": {
+                  "name": "Filter3295ec230e5fef01e1c1",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Meta"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filtera1ef5231f885ac8c88a7": {
+                  "name": "Filtera1ef5231f885ac8c88a7",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Espacio1"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filter802d32292028d80a78b7": {
+                  "name": "Filter802d32292028d80a78b7",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL 1"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filter6347809694dea36f91bf": {
+                  "name": "Filter6347809694dea36f91bf",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL 2"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              },
+              "byExpr": [
+                {
+                  "name": "b390ec639698dde6e08e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Espacio4"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "dacf9d63c205ba023dee",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL_1"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "792acaac8587b45c5a5c",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL_2"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "a0c4a1d6aa306c2d7857",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Espacio2"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "98fe6c98d410458ca9a9",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Espacio3"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "049204aa023e927b1aad",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Actual (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "e0d5f2114b015a5804dd",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Mes Anterior (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "b48b89af901746c7a008",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor MoM (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "f3a0e060e6e43cc36d7a",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Interanual (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "e8bef3d780c63adc6e60",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor YoY (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "0141051a6162e9750c6d",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Cierre Año Anterior (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "87a1f634a7d6d80975d1",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor YTD (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "4039680508444dc8e48d",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Meta (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "pivotTable",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Actual"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Rows": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL_0"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL_1"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL_2"
+                    }
+                  }
+                ]
+              },
+              "expansionStates": [
+                {
+                  "roles": [
+                    "Rows"
+                  ],
+                  "levels": [
+                    {
+                      "queryRefs": [
+                        "FctProductos.NIVEL_0"
+                      ],
+                      "identityKeys": [
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "FctProductos"
+                              }
+                            },
+                            "Property": "NIVEL_0"
+                          }
+                        }
+                      ],
+                      "isPinned": true
+                    },
+                    {
+                      "queryRefs": [
+                        "FctProductos.NIVEL_1"
+                      ],
+                      "identityKeys": [
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Entity": "FctProductos"
+                              }
+                            },
+                            "Property": "NIVEL_1"
+                          }
+                        }
+                      ],
+                      "isPinned": true
+                    },
+                    {
+                      "queryRefs": [
+                        "FctProductos.NIVEL_2"
+                      ],
+                      "isCollapsed": true,
+                      "isPinned": true
+                    }
+                  ],
+                  "root": {
+                    "identityValues": null
+                  }
+                }
+              ]
+            }
+          },
+          "5e0c5c5f024da96708bc": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "1769980013c5427805a6": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "bb75fd49510408a8dc3c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha Actualización"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha Actualización"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "d89f2f091c0e4bd85d0e": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "0f49000781462e61158b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha MoM"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha MoM"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "3b9706fbd60600200e4a": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "cb1a1b600cd25edc03e3",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha YoY"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha YoY"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "9b5a7dc6eaaa90188e6d": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "f67af0101b5d60bd3823",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha Actualización"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha Actualización"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "2267c5d09e69ce9976a9": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "b7953f6f0572ac0ddded",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha YTD"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha YTD"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "f03951fb01090435a9d7": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "161c36a260d0b20e92ee": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "45b841b72eb2a8907607": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "8e3f11b079033a394111": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "1730f4e0b5d7a89c4250": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "b9132f24c33233890d00": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "27463c831a5bd5a1b154": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "6e417bf450e5475a0ea0": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "9e22675824c6995b0184": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "f24313ba90740108ddad": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "b9437fa931d0e2015472": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "1d4c7cdb7b8debb09b86",
+                  "type": "Advanced",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "m",
+                        "Entity": "Medidas",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Measure": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "m"
+                                  }
+                                },
+                                "Property": "TieneDatos"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "1L"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "TieneDatos"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "fab49050803e722b0ac1",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimTipoProducto"
+                        }
+                      },
+                      "Property": "TIPO_PRODUCTO"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "d",
+                                "Entity": "DimTipoProducto",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "d"
+                                            }
+                                          },
+                                          "Property": "TIPO_PRODUCTO"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'CUENTA DE EFECTIVO'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Basic'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "orderBy": [
+                {
+                  "Direction": 2,
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimTipoProducto"
+                        }
+                      },
+                      "Property": "TIPO_PRODUCTO"
+                    }
+                  }
+                }
+              ],
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimTipoProducto"
+                        }
+                      },
+                      "Property": "TIPO_PRODUCTO"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "abbab746bd461ae27335": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "1d4c7cdb7b8debb09b86",
+                  "type": "Advanced",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "m",
+                        "Entity": "Medidas",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Measure": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "m"
+                                  }
+                                },
+                                "Property": "TieneDatos"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "1L"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "TieneDatos"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "03eeefa3d006c7e0a682",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimTipoProducto"
+                        }
+                      },
+                      "Property": "SUBTIPO_PRODUCTO"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Basic'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimTipoProducto"
+                        }
+                      },
+                      "Property": "SUBTIPO_PRODUCTO"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "42b9a961684761ce37ee": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "7409c0555766d4dd4cbf": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "cf6b484c002a214582bd",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha Actualización"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {},
+              "orderBy": [
+                {
+                  "Direction": 1,
+                  "Expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha Actualización"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "64732074fb7152287f17": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "1d4c7cdb7b8debb09b86",
+                  "type": "Advanced",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "m",
+                        "Entity": "Medidas",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Measure": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "m"
+                                  }
+                                },
+                                "Property": "TieneDatos"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "1L"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "TieneDatos"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "69db8ed817be0da2ddda",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Metricas"
+                        }
+                      },
+                      "Property": "Metrica"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "general": [
+                    {
+                      "properties": {
+                        "filter": {
+                          "filter": {
+                            "Version": 2,
+                            "From": [
+                              {
+                                "Name": "m",
+                                "Entity": "Metricas",
+                                "Type": 0
+                              }
+                            ],
+                            "Where": [
+                              {
+                                "Condition": {
+                                  "In": {
+                                    "Expressions": [
+                                      {
+                                        "Column": {
+                                          "Expression": {
+                                            "SourceRef": {
+                                              "Source": "m"
+                                            }
+                                          },
+                                          "Property": "Metrica"
+                                        }
+                                      }
+                                    ],
+                                    "Values": [
+                                      [
+                                        {
+                                          "Literal": {
+                                            "Value": "'Saldo'"
+                                          }
+                                        }
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Basic'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Metricas"
+                        }
+                      },
+                      "Property": "Metrica"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "dd037b168f52492bf27b": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "1d4c7cdb7b8debb09b86",
+                  "type": "Advanced",
+                  "filter": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "m",
+                        "Entity": "Medidas",
+                        "Type": 0
+                      }
+                    ],
+                    "Where": [
+                      {
+                        "Condition": {
+                          "Comparison": {
+                            "ComparisonKind": 0,
+                            "Left": {
+                              "Measure": {
+                                "Expression": {
+                                  "SourceRef": {
+                                    "Source": "m"
+                                  }
+                                },
+                                "Property": "TieneDatos"
+                              }
+                            },
+                            "Right": {
+                              "Literal": {
+                                "Value": "1L"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "TieneDatos"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                {
+                  "name": "d2ea956470a2193e1b4a",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimMoneda"
+                        }
+                      },
+                      "Property": "MONEDA"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "slicer",
+              "objects": {
+                "merge": {
+                  "data": [
+                    {
+                      "properties": {
+                        "mode": {
+                          "expr": {
+                            "Literal": {
+                              "Value": "'Basic'"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              "activeProjections": {
+                "Values": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "DimMoneda"
+                        }
+                      },
+                      "Property": "MONEDA"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "ad11479b600db5afa4b7": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "4b9c31a7a8fe212751ab": {
+            "singleVisual": {
+              "visualType": "bookmarkNavigator",
+              "objects": {}
+            }
+          },
+          "a89fffed37c28870d523": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "3a3944b026c71c9927bb",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Título Medida"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "0e267d619a7dde2caca1": {
+            "filters": {
+              "byName": {
+                "Filter16b8a54febb579041c49": {
+                  "name": "Filter16b8a54febb579041c49",
+                  "type": "Advanced",
+                  "expression": {
+                    "Arithmetic": {
+                      "Left": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "⚙ Medidas"
+                            }
+                          },
+                          "Property": "Valor Actual"
+                        }
+                      },
+                      "Right": {
+                        "ScopedEval": {
+                          "Expression": {
+                            "Measure": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "⚙ Medidas"
+                                }
+                              },
+                              "Property": "Valor Actual"
+                            }
+                          },
+                          "Scope": [
+                            {
+                              "RoleRef": {
+                                "Role": "Columns"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "Operator": 3
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filterc7c6967837fa54873d01": {
+                  "name": "Filterc7c6967837fa54873d01",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor MoM"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filterf971de1ce6ef6fa727f0": {
+                  "name": "Filterf971de1ce6ef6fa727f0",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Mes Anterior"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filterae0f24b4b5d36c45d20e": {
+                  "name": "Filterae0f24b4b5d36c45d20e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Interanual"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filter8d42bb01ee19fd7318fa": {
+                  "name": "Filter8d42bb01ee19fd7318fa",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Cierre Año Anterior"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filter645ff2037b71697f8fcb": {
+                  "name": "Filter645ff2037b71697f8fcb",
+                  "type": "Advanced",
+                  "expression": {
+                    "Arithmetic": {
+                      "Left": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "⚙ Medidas"
+                            }
+                          },
+                          "Property": "Valor Actual"
+                        }
+                      },
+                      "Right": {
+                        "ScopedEval": {
+                          "Expression": {
+                            "Measure": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "⚙ Medidas"
+                                }
+                              },
+                              "Property": "Valor Actual"
+                            }
+                          },
+                          "Scope": [
+                            {
+                              "RoleRef": {
+                                "Role": "Rows"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "Operator": 3
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filterd6a6fc14f2912e2930a3": {
+                  "name": "Filterd6a6fc14f2912e2930a3",
+                  "type": "Advanced",
+                  "expression": {
+                    "Arithmetic": {
+                      "Left": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "⚙ Medidas"
+                            }
+                          },
+                          "Property": "Valor Actual"
+                        }
+                      },
+                      "Right": {
+                        "ScopedEval": {
+                          "Expression": {
+                            "Measure": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "⚙ Medidas"
+                                }
+                              },
+                              "Property": "Valor Actual"
+                            }
+                          },
+                          "Scope": []
+                        }
+                      },
+                      "Operator": 3
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filter3295ec230e5fef01e1c1": {
+                  "name": "Filter3295ec230e5fef01e1c1",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Meta"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filtera1ef5231f885ac8c88a7": {
+                  "name": "Filtera1ef5231f885ac8c88a7",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Espacio1"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              },
+              "byExpr": [
+                {
+                  "name": "75da183e4d664d436445",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Espacio4"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "955bdf083f6ed8e31202",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL_1"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "840da8baa5212fba3d30",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Espacio2"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "4fbb2c879cf57f9c9c8d",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Espacio3"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "2669feab01a32bbf48c6",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Actual (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "a087d7fe8d3bca2be30e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Mes Anterior (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "f170257d606a1166bec5",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor MoM (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "86599543fa7050d6a162",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Interanual (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "551c00f8947118aa5960",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor YoY (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "1c4f74adfcd6eff63612",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Cierre Año Anterior (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "3692e2d52a9bca43d6fa",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor YTD (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "3aded5821d17a3fd457c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Meta (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "158c26676efa633cf467",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "SUBTIPO_PRODUCTO"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "pivotTable",
+              "objects": {},
+              "activeProjections": {
+                "Rows": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL_0"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL_1"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "SUBTIPO_PRODUCTO"
+                    }
+                  }
+                ]
+              },
+              "expansionStates": [
+                {
+                  "roles": [
+                    "Rows"
+                  ],
+                  "levels": [
+                    {
+                      "queryRefs": [
+                        "FctProductos.NIVEL_0"
+                      ],
+                      "isPinned": true
+                    },
+                    {
+                      "queryRefs": [
+                        "FctProductos.NIVEL_1"
+                      ],
+                      "isPinned": true
+                    },
+                    {
+                      "queryRefs": [
+                        "FctProductos.SUBTIPO_PRODUCTO"
+                      ],
+                      "isCollapsed": true,
+                      "isPinned": true
+                    }
+                  ],
+                  "root": {
+                    "identityValues": null
+                  }
+                }
+              ],
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "e5e2136b7c28cae7093d": {
+            "filters": {
+              "byName": {
+                "Filter16b8a54febb579041c49": {
+                  "name": "Filter16b8a54febb579041c49",
+                  "type": "Advanced",
+                  "expression": {
+                    "Arithmetic": {
+                      "Left": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "⚙ Medidas"
+                            }
+                          },
+                          "Property": "Valor Actual"
+                        }
+                      },
+                      "Right": {
+                        "ScopedEval": {
+                          "Expression": {
+                            "Measure": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "⚙ Medidas"
+                                }
+                              },
+                              "Property": "Valor Actual"
+                            }
+                          },
+                          "Scope": [
+                            {
+                              "RoleRef": {
+                                "Role": "Columns"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "Operator": 3
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filterc7c6967837fa54873d01": {
+                  "name": "Filterc7c6967837fa54873d01",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor MoM"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filterf971de1ce6ef6fa727f0": {
+                  "name": "Filterf971de1ce6ef6fa727f0",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Mes Anterior"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filterae0f24b4b5d36c45d20e": {
+                  "name": "Filterae0f24b4b5d36c45d20e",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Interanual"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filter8d42bb01ee19fd7318fa": {
+                  "name": "Filter8d42bb01ee19fd7318fa",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Cierre Año Anterior"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filter645ff2037b71697f8fcb": {
+                  "name": "Filter645ff2037b71697f8fcb",
+                  "type": "Advanced",
+                  "expression": {
+                    "Arithmetic": {
+                      "Left": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "⚙ Medidas"
+                            }
+                          },
+                          "Property": "Valor Actual"
+                        }
+                      },
+                      "Right": {
+                        "ScopedEval": {
+                          "Expression": {
+                            "Measure": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "⚙ Medidas"
+                                }
+                              },
+                              "Property": "Valor Actual"
+                            }
+                          },
+                          "Scope": [
+                            {
+                              "RoleRef": {
+                                "Role": "Rows"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "Operator": 3
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filterd6a6fc14f2912e2930a3": {
+                  "name": "Filterd6a6fc14f2912e2930a3",
+                  "type": "Advanced",
+                  "expression": {
+                    "Arithmetic": {
+                      "Left": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "⚙ Medidas"
+                            }
+                          },
+                          "Property": "Valor Actual"
+                        }
+                      },
+                      "Right": {
+                        "ScopedEval": {
+                          "Expression": {
+                            "Measure": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "⚙ Medidas"
+                                }
+                              },
+                              "Property": "Valor Actual"
+                            }
+                          },
+                          "Scope": []
+                        }
+                      },
+                      "Operator": 3
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filter3295ec230e5fef01e1c1": {
+                  "name": "Filter3295ec230e5fef01e1c1",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Meta"
+                    }
+                  },
+                  "howCreated": 1
+                },
+                "Filtera1ef5231f885ac8c88a7": {
+                  "name": "Filtera1ef5231f885ac8c88a7",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Espacio1"
+                    }
+                  },
+                  "howCreated": 1
+                }
+              },
+              "byExpr": [
+                {
+                  "name": "33bd6147b7f3e7b3bc20",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Espacio4"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "e08a9e84813ec99ef8e2",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL_1"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "9e6ec058af4a653796a5",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Espacio2"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "13c6644d09c4764369cb",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Espacio3"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "c2a0ce048f7b0c800a2d",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Actual (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "cd048901eef9032eac7a",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Mes Anterior (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "9eb899ac0e582744ed98",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor MoM (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "a64a00bfa72cb545cd58",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Interanual (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "1903e96b486a912bdecd",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor YoY (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "70e314455f15fcfedbd3",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Cierre Año Anterior (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "c24db0631fda043889d1",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor YTD (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "c97e0c82ef6ee7640673",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "⚙ Medidas"
+                        }
+                      },
+                      "Property": "Valor Meta (txt)"
+                    }
+                  },
+                  "howCreated": 0
+                },
+                {
+                  "name": "e77b4bd08b26c3d7908c",
+                  "type": "Categorical",
+                  "expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL_TASA"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "pivotTable",
+              "objects": {},
+              "activeProjections": {
+                "Rows": [
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL_0"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL_1"
+                    }
+                  },
+                  {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FctProductos"
+                        }
+                      },
+                      "Property": "NIVEL_TASA"
+                    }
+                  }
+                ]
+              },
+              "expansionStates": [
+                {
+                  "roles": [
+                    "Rows"
+                  ],
+                  "levels": [
+                    {
+                      "queryRefs": [
+                        "FctProductos.NIVEL_0"
+                      ],
+                      "isPinned": true
+                    },
+                    {
+                      "queryRefs": [
+                        "FctProductos.NIVEL_1"
+                      ],
+                      "isPinned": true
+                    },
+                    {
+                      "queryRefs": [
+                        "FctProductos.NIVEL_TASA"
+                      ],
+                      "isCollapsed": true,
+                      "isPinned": true
+                    }
+                  ],
+                  "root": {
+                    "identityValues": null
+                  }
+                }
+              ]
+            }
+          },
+          "3efc9cfcafd04862326a": {
+            "singleVisual": {
+              "visualType": "pageNavigator",
+              "objects": {}
+            }
+          },
+          "b746108b5d0cd5bcc526": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "10b70a973d47ec8f2679": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "75b293e982e15c36971c",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha Actualización"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "f0c5448ba03810e93b00": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "ddb3d231bb6ba0b13487",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha MoM"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "21ef5b51b0849f37a92f": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "14b79a09c50871249216",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha YoY"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "282ae60521cc5698c1ed": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "79bcb7a11636c51b8a91",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha Actualización"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "72dab4976957683b3311": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "586163b33d8308517d32",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha YTD"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "1992adfcc067dfe41d48": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "f59981d3150a072fdcf1": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "b40b49ce2a9a7ab7e56e": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "a3abc0880eb1cd7cfbcb": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "f3a4ac4457f2f687c1c7": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "f9b730b9f06762eb9588": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "7341e794cc25949b6148": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "e6e4ce92a6f30696fde5": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "b92b3e57737201b40df9": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "6ec23d45433f1ed5edc2": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "c55fa08aa42f935e1bcf": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "7c0b63e427470593c1f6": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "objects": {}
+            }
+          },
+          "f7ddafa9de17e27ae407": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "e34ccdb499afd5390769": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "a6d6d062b30bdd8c763d",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha Actualización"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "6a587dbe400ee5fbe486": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "2f4ebf297aed07282591",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha MoM"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "b3055b284ff46ad8b970": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "8a9e74933487486dc4a4",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha YoY"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "b0abb1506aa03dd6b6fa": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "cae183dd88ad802a6d1b",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha Actualización"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "18f5119946aeae62291c": {
+            "filters": {
+              "byExpr": [
+                {
+                  "name": "64438f9052700e1a5589",
+                  "type": "Advanced",
+                  "expression": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Medidas"
+                        }
+                      },
+                      "Property": "Fecha YTD"
+                    }
+                  },
+                  "howCreated": 0
+                }
+              ]
+            },
+            "singleVisual": {
+              "visualType": "card",
+              "objects": {}
+            }
+          },
+          "fc214671862c41de6653": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "87f87e35adb3925c2115": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "349b2a7b53f59ef64047": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "d2cf71a0d1280bc9f336": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "c07f7ca7e793f1cd73d9": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "fe61fa722cd5ad77efa0": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "00a92d7ac9900241330a": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "5d10a38dfe6ebd9f44cf": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          },
+          "8c3739a4176c0dd8e399": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "objects": {}
+            }
+          },
+          "aad8f6966bd41791dc00": {
+            "singleVisual": {
+              "visualType": "shape",
+              "objects": {}
+            }
+          }
+        },
+        "visualContainerGroups": {
+          "b03a0013b760a403e49c": {
+            "isHidden": true
+          },
+          "922fbdfe647566787ef6": {
+            "isHidden": true
+          },
+          "8ba930d230891a785336": {
+            "isHidden": false
+          }
+        }
+      }
+    },
+    "objects": {
+      "merge": {
+        "outspacePane": [
+          {
+            "properties": {
+              "expanded": {
+                "expr": {
+                  "Literal": {
+                    "Value": "true"
+                  }
+                }
+              },
+              "visible": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

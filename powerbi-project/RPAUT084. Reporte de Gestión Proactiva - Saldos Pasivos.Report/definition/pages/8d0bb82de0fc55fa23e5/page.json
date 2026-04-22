@@ -1,0 +1,79 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "8d0bb82de0fc55fa23e5",
+  "displayName": "Panel",
+  "displayOption": "FitToPage",
+  "height": 975,
+  "width": 1250,
+  "filterConfig": {
+    "filterSortOrder": "Custom"
+  },
+  "pageBinding": {
+    "name": "ad1bb15bba8d2c936fee",
+    "type": "Default",
+    "parameters": [],
+    "referenceScope": "CrossReport"
+  },
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "''"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "Literal": {
+                    "Value": "''"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "66D"
+              }
+            }
+          },
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "ThemeDataColor": {
+                    "ColorId": 0,
+                    "Percent": -0.1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "64732074fb7152287f17",
+      "target": "93a509e1935596ca03b4",
+      "type": "NoFilter"
+    },
+    {
+      "source": "64732074fb7152287f17",
+      "target": "a5c4048015cd5f230ca5",
+      "type": "NoFilter"
+    },
+    {
+      "source": "64732074fb7152287f17",
+      "target": "2c298dab9fe585085497",
+      "type": "NoFilter"
+    }
+  ]
+}

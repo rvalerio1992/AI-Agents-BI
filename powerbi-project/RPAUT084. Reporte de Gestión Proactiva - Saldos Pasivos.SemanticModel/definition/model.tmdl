@@ -1,0 +1,48 @@
+model Model
+	culture: es-ES
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-ES
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Medidas
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup Dimensiones
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup Hechos
+
+	annotation PBI_QueryGroupOrder = 0
+
+annotation PBI_QueryOrder = ["Parámetros","FctProductos","⚙ Medidas","Medidas","DimCalendario","DimEstadoProducto","DimPromotor","DimCliente","DimTipoProducto","DimProducto","DimMoneda","DimMetas","Metricas"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DaxQueryView_Desktop","DevMode"]
+
+ref table DateTableTemplate_5e88a427-25a5-4994-a4fe-ebf1ac5e88b3
+ref table DimCalendario
+ref table LocalDateTable_c38c851c-baf1-425a-b46b-6fc5b8e62172
+ref table Medidas
+ref table FctProductos
+ref table DimEstadoProducto
+ref table DimPromotor
+ref table DimCliente
+ref table DimTipoProducto
+ref table DimProducto
+ref table LocalDateTable_385a457a-20df-4be8-ac4f-190433881064
+ref table DimMoneda
+ref table Parámetros
+ref table DimMetas
+ref table LocalDateTable_a0176f28-d511-490b-aa1c-fc4edc033051
+ref table Tabla
+ref table Metricas
+ref table '⚙ Medidas'
+ref table LocalDateTable_00444826-d1ae-48ed-9fe1-f6339b8a289a
+
+ref cultureInfo es-ES
+

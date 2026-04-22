@@ -1,0 +1,43 @@
+table Tabla
+	lineageTag: 6e5197e3-aae3-4410-b59f-8b3afdc9e523
+
+	column SUBTIPO_PRODUCTO
+		lineageTag: c5bf2615-d63a-42c7-8151-6dc171eac40b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: FctProductos[SUBTIPO_PRODUCTO]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MONTO
+		lineageTag: 11612238-e9c5-41c6-8e0e-616e739274fb
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [MONTO]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TIPO_SALDO
+		lineageTag: cad2f4b5-8131-40de-a969-f7d9d4c61d56
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimTipoProducto[TIPO_SALDO]
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_PRODUCTO
+		lineageTag: 83a2a146-9deb-4dbf-aeaf-472b9f941562
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimTipoProducto[TIPO_PRODUCTO]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Tabla = calculated
+		mode: import
+		source = SUMMARIZE(FctProductos, DimTipoProducto[TIPO_SALDO], DimTipoProducto[TIPO_PRODUCTO], FctProductos[SUBTIPO_PRODUCTO], "MONTO", SUM(FctProductos[VALOR]))
+
+	annotation PBI_Id = 490643669885489ca80814c4eeedf03f
+

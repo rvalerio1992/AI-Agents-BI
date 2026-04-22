@@ -1,0 +1,52 @@
+relationship 6d060b73-0adc-4b0e-bb94-e4c0e907c197
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimCalendario.Fecha
+	toColumn: LocalDateTable_c38c851c-baf1-425a-b46b-6fc5b8e62172.Date
+
+relationship 5f308f4c-be2d-4fae-eab7-e82766f29792
+	fromColumn: FctProductos.FEC_CORTE
+	toColumn: DimCalendario.Fecha
+
+relationship 0c7e304e-25b0-4588-b1ac-87b17e079307
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimProducto.FEC_APERTURA
+	toColumn: LocalDateTable_385a457a-20df-4be8-ac4f-190433881064.Date
+
+relationship AutoDetected_d7658848-738f-45c2-bfe2-e1c82f793ca2
+	fromColumn: FctProductos.COD_CLIENTE
+	toColumn: DimCliente.COD_CLIENTE
+
+relationship AutoDetected_c09f7eab-2b35-4030-9b84-7e8bf472b3ad
+	fromColumn: FctProductos.COD_PRODUCTO
+	toColumn: DimProducto.COD_PRODUCTO
+
+relationship AutoDetected_7a04b2dc-2bc3-4450-8195-bc794c47e079
+	fromColumn: FctProductos.COD_TIPO_PRODUCTO
+	toColumn: DimTipoProducto.COD_TIPO_PRODUCTO
+
+relationship AutoDetected_413d658f-e310-4ff7-8ac1-7b0170077d1b
+	fromColumn: FctProductos.COD_MONEDA
+	toColumn: DimMoneda.COD_MONEDA
+
+relationship AutoDetected_0e67b818-6396-4a6b-864e-40e0c09eb44c
+	fromColumn: FctProductos.COD_PROMOTOR
+	toColumn: DimPromotor.COD_PROMOTOR
+
+relationship ff7355a4-3af1-0668-8f2a-1fe62f17ef77
+	fromColumn: FctProductos.COD_ESTADO_PRODUCTO
+	toColumn: DimEstadoProducto.COD_ESTADO
+
+relationship 528e9a33-7991-f837-b550-6b5a9e8844fa
+	fromColumn: FctProductos.FEC_CORTE
+	toColumn: DimMetas.FEC_CORTE
+
+relationship 08188dc6-80bd-4e53-8b36-3e7d69d4be9e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimMetas.FEC_CORTE
+	toColumn: LocalDateTable_a0176f28-d511-490b-aa1c-fc4edc033051.Date
+
+relationship bb684b22-c498-40f2-974b-ffac28185698
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimProducto.FEC_VENCIMIENTO
+	toColumn: LocalDateTable_00444826-d1ae-48ed-9fe1-f6339b8a289a.Date
+

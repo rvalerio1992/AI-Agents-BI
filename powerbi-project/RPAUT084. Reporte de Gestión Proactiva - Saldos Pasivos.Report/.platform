@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "RPAUT084. Reporte de Gestión Proactiva - Saldos Pasivos"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "6f0e4344-bf6c-4164-959b-f97eae45782b"
+  }
+}
