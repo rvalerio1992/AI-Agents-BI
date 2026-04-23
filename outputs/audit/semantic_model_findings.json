@@ -1,0 +1,1830 @@
+{
+  "audit_date": "2026-04-23",
+  "project": "RPAUT084",
+  "score_global": 0,
+  "summary": {
+    "total_tables": 19,
+    "total_findings": 200,
+    "by_severity": {
+      "observación": 144,
+      "mejora": 55,
+      "crítico": 1
+    },
+    "by_rule": {
+      "NAMING-TABLE-STYLE": 9,
+      "NAMING-MEASURES-TABLE": 2,
+      "NAMING-TABLE": 3,
+      "TABLE-DESCRIPTION": 14,
+      "MEASURE-NO-FOLDER": 65,
+      "MEASURE-NO-DESCRIPTION": 67,
+      "MEASURE-NO-FORMAT": 35,
+      "DAX-USE-DIVIDE": 1,
+      "MODEL-AUTO-DATETIME": 1,
+      "DIM-FECHA-NOT-MARKED": 1,
+      "REL-AUTO-DETECTED": 1,
+      "REL-LOCAL-DATETABLE": 1
+    }
+  },
+  "findings": [
+    {
+      "id": "SM-001",
+      "severity": "observación",
+      "rule": "NAMING-TABLE-STYLE",
+      "location": "tables/DimCalendario.tmdl",
+      "description": "Tabla `DimCalendario` usa estilo `Dim` (Power BI) en vez de `DIM_` (Promerica).",
+      "recommendation": "Considerar migrar a estilo con underscore: FctProductos → FACT_Productos.",
+      "evidence": null
+    },
+    {
+      "id": "SM-002",
+      "severity": "observación",
+      "rule": "NAMING-TABLE-STYLE",
+      "location": "tables/DimCliente.tmdl",
+      "description": "Tabla `DimCliente` usa estilo `Dim` (Power BI) en vez de `DIM_` (Promerica).",
+      "recommendation": "Considerar migrar a estilo con underscore: FctProductos → FACT_Productos.",
+      "evidence": null
+    },
+    {
+      "id": "SM-003",
+      "severity": "observación",
+      "rule": "NAMING-TABLE-STYLE",
+      "location": "tables/DimEstadoProducto.tmdl",
+      "description": "Tabla `DimEstadoProducto` usa estilo `Dim` (Power BI) en vez de `DIM_` (Promerica).",
+      "recommendation": "Considerar migrar a estilo con underscore: FctProductos → FACT_Productos.",
+      "evidence": null
+    },
+    {
+      "id": "SM-004",
+      "severity": "observación",
+      "rule": "NAMING-TABLE-STYLE",
+      "location": "tables/DimMetas.tmdl",
+      "description": "Tabla `DimMetas` usa estilo `Dim` (Power BI) en vez de `DIM_` (Promerica).",
+      "recommendation": "Considerar migrar a estilo con underscore: FctProductos → FACT_Productos.",
+      "evidence": null
+    },
+    {
+      "id": "SM-005",
+      "severity": "observación",
+      "rule": "NAMING-TABLE-STYLE",
+      "location": "tables/DimMoneda.tmdl",
+      "description": "Tabla `DimMoneda` usa estilo `Dim` (Power BI) en vez de `DIM_` (Promerica).",
+      "recommendation": "Considerar migrar a estilo con underscore: FctProductos → FACT_Productos.",
+      "evidence": null
+    },
+    {
+      "id": "SM-006",
+      "severity": "observación",
+      "rule": "NAMING-TABLE-STYLE",
+      "location": "tables/DimProducto.tmdl",
+      "description": "Tabla `DimProducto` usa estilo `Dim` (Power BI) en vez de `DIM_` (Promerica).",
+      "recommendation": "Considerar migrar a estilo con underscore: FctProductos → FACT_Productos.",
+      "evidence": null
+    },
+    {
+      "id": "SM-007",
+      "severity": "observación",
+      "rule": "NAMING-TABLE-STYLE",
+      "location": "tables/DimPromotor.tmdl",
+      "description": "Tabla `DimPromotor` usa estilo `Dim` (Power BI) en vez de `DIM_` (Promerica).",
+      "recommendation": "Considerar migrar a estilo con underscore: FctProductos → FACT_Productos.",
+      "evidence": null
+    },
+    {
+      "id": "SM-008",
+      "severity": "observación",
+      "rule": "NAMING-TABLE-STYLE",
+      "location": "tables/DimTipoProducto.tmdl",
+      "description": "Tabla `DimTipoProducto` usa estilo `Dim` (Power BI) en vez de `DIM_` (Promerica).",
+      "recommendation": "Considerar migrar a estilo con underscore: FctProductos → FACT_Productos.",
+      "evidence": null
+    },
+    {
+      "id": "SM-009",
+      "severity": "observación",
+      "rule": "NAMING-TABLE-STYLE",
+      "location": "tables/FctProductos.tmdl",
+      "description": "Tabla `FctProductos` usa estilo `Fct` (Power BI) en vez de `FCT_` (Promerica).",
+      "recommendation": "Considerar migrar a estilo con underscore: FctProductos → FACT_Productos.",
+      "evidence": null
+    },
+    {
+      "id": "SM-010",
+      "severity": "mejora",
+      "rule": "NAMING-MEASURES-TABLE",
+      "location": "tables/Medidas.tmdl",
+      "description": "Tabla `Medidas` no usa convención Promerica (prefijo `_` para auxiliares o `CG_` para calculation groups).",
+      "recommendation": "Renombrar a `_Medidas` o similar para marcarla como auxiliar oculta.",
+      "evidence": null
+    },
+    {
+      "id": "SM-011",
+      "severity": "mejora",
+      "rule": "NAMING-MEASURES-TABLE",
+      "location": "tables/Metricas.tmdl",
+      "description": "Tabla `Metricas` no usa convención Promerica (prefijo `_` para auxiliares o `CG_` para calculation groups).",
+      "recommendation": "Renombrar a `_Medidas` o similar para marcarla como auxiliar oculta.",
+      "evidence": null
+    },
+    {
+      "id": "SM-012",
+      "severity": "mejora",
+      "rule": "NAMING-TABLE",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Tabla `Parámetros` con nombre genérico, no sigue prefijo Promerica.",
+      "recommendation": "Renombrar a `PARAM_Filtros` o similar siguiendo convención institucional.",
+      "evidence": null
+    },
+    {
+      "id": "SM-013",
+      "severity": "mejora",
+      "rule": "NAMING-TABLE",
+      "location": "tables/Tabla.tmdl",
+      "description": "Tabla `Tabla` con nombre genérico, no sigue prefijo Promerica.",
+      "recommendation": "Renombrar a `PARAM_Filtros` o similar siguiendo convención institucional.",
+      "evidence": null
+    },
+    {
+      "id": "SM-014",
+      "severity": "observación",
+      "rule": "NAMING-TABLE",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Tabla `⚙` no sigue convención FACT_/DIM_/BRIDGE_/PARAM_.",
+      "recommendation": "Evaluar renombrado según tipo.",
+      "evidence": null
+    },
+    {
+      "id": "SM-015",
+      "severity": "mejora",
+      "rule": "TABLE-DESCRIPTION",
+      "location": "tables/DimCalendario.tmdl",
+      "description": "Tabla `DimCalendario` no tiene descripción (`/// ...`).",
+      "recommendation": "Agregar descripción explicando el propósito y contexto de negocio.",
+      "evidence": null
+    },
+    {
+      "id": "SM-016",
+      "severity": "mejora",
+      "rule": "TABLE-DESCRIPTION",
+      "location": "tables/DimCliente.tmdl",
+      "description": "Tabla `DimCliente` no tiene descripción (`/// ...`).",
+      "recommendation": "Agregar descripción explicando el propósito y contexto de negocio.",
+      "evidence": null
+    },
+    {
+      "id": "SM-017",
+      "severity": "mejora",
+      "rule": "TABLE-DESCRIPTION",
+      "location": "tables/DimEstadoProducto.tmdl",
+      "description": "Tabla `DimEstadoProducto` no tiene descripción (`/// ...`).",
+      "recommendation": "Agregar descripción explicando el propósito y contexto de negocio.",
+      "evidence": null
+    },
+    {
+      "id": "SM-018",
+      "severity": "mejora",
+      "rule": "TABLE-DESCRIPTION",
+      "location": "tables/DimMetas.tmdl",
+      "description": "Tabla `DimMetas` no tiene descripción (`/// ...`).",
+      "recommendation": "Agregar descripción explicando el propósito y contexto de negocio.",
+      "evidence": null
+    },
+    {
+      "id": "SM-019",
+      "severity": "mejora",
+      "rule": "TABLE-DESCRIPTION",
+      "location": "tables/DimMoneda.tmdl",
+      "description": "Tabla `DimMoneda` no tiene descripción (`/// ...`).",
+      "recommendation": "Agregar descripción explicando el propósito y contexto de negocio.",
+      "evidence": null
+    },
+    {
+      "id": "SM-020",
+      "severity": "mejora",
+      "rule": "TABLE-DESCRIPTION",
+      "location": "tables/DimProducto.tmdl",
+      "description": "Tabla `DimProducto` no tiene descripción (`/// ...`).",
+      "recommendation": "Agregar descripción explicando el propósito y contexto de negocio.",
+      "evidence": null
+    },
+    {
+      "id": "SM-021",
+      "severity": "mejora",
+      "rule": "TABLE-DESCRIPTION",
+      "location": "tables/DimPromotor.tmdl",
+      "description": "Tabla `DimPromotor` no tiene descripción (`/// ...`).",
+      "recommendation": "Agregar descripción explicando el propósito y contexto de negocio.",
+      "evidence": null
+    },
+    {
+      "id": "SM-022",
+      "severity": "mejora",
+      "rule": "TABLE-DESCRIPTION",
+      "location": "tables/DimTipoProducto.tmdl",
+      "description": "Tabla `DimTipoProducto` no tiene descripción (`/// ...`).",
+      "recommendation": "Agregar descripción explicando el propósito y contexto de negocio.",
+      "evidence": null
+    },
+    {
+      "id": "SM-023",
+      "severity": "mejora",
+      "rule": "TABLE-DESCRIPTION",
+      "location": "tables/FctProductos.tmdl",
+      "description": "Tabla `FctProductos` no tiene descripción (`/// ...`).",
+      "recommendation": "Agregar descripción explicando el propósito y contexto de negocio.",
+      "evidence": null
+    },
+    {
+      "id": "SM-024",
+      "severity": "mejora",
+      "rule": "TABLE-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Tabla `Medidas` no tiene descripción (`/// ...`).",
+      "recommendation": "Agregar descripción explicando el propósito y contexto de negocio.",
+      "evidence": null
+    },
+    {
+      "id": "SM-025",
+      "severity": "mejora",
+      "rule": "TABLE-DESCRIPTION",
+      "location": "tables/Metricas.tmdl",
+      "description": "Tabla `Metricas` no tiene descripción (`/// ...`).",
+      "recommendation": "Agregar descripción explicando el propósito y contexto de negocio.",
+      "evidence": null
+    },
+    {
+      "id": "SM-026",
+      "severity": "mejora",
+      "rule": "TABLE-DESCRIPTION",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Tabla `Parámetros` no tiene descripción (`/// ...`).",
+      "recommendation": "Agregar descripción explicando el propósito y contexto de negocio.",
+      "evidence": null
+    },
+    {
+      "id": "SM-027",
+      "severity": "mejora",
+      "rule": "TABLE-DESCRIPTION",
+      "location": "tables/Tabla.tmdl",
+      "description": "Tabla `Tabla` no tiene descripción (`/// ...`).",
+      "recommendation": "Agregar descripción explicando el propósito y contexto de negocio.",
+      "evidence": null
+    },
+    {
+      "id": "SM-028",
+      "severity": "mejora",
+      "rule": "TABLE-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Tabla `⚙` no tiene descripción (`/// ...`).",
+      "recommendation": "Agregar descripción explicando el propósito y contexto de negocio.",
+      "evidence": null
+    },
+    {
+      "id": "SM-029",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Complete_%]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-030",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Complete_%]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-031",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Estado]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-032",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Estado]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-033",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Estado]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-034",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Target_%]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-035",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Target_%]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-036",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Target_Delta]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-037",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Target_Delta]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-038",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_YoY_%]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-039",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_YoY_%]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-040",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_YTD_%]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-041",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_YTD_%]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-042",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Fecha Actualización]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-043",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Fecha Actualización]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-044",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Fecha MoM]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-045",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Fecha MoM]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-046",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Fecha YoY]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-047",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Fecha YoY]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-048",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Fecha YTD]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-049",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Fecha YTD]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-050",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Last_Valor (Eje)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-051",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Last_Valor (Eje)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-052",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Last_Valor (Eje)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-053",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Last_Valor (%)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-054",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Last_Valor (%)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-055",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Last_Valor (%)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-056",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Porcentaje Target (Ayer)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-057",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Porcentaje Target (Ayer)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-058",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Porcentaje Target (Ayer)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-059",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Target_Valor_FinMes]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-060",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Target_Valor_FinMes]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-061",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Porcentaje Target (Fin Mes Actual)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-062",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Porcentaje Target (Fin Mes Actual)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-063",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Porcentaje Target (Fin Mes Actual)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-064",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Target_Delta_FinMes]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-065",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Target_Delta_FinMes]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-066",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Target_Delta_FinMes]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-067",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Complete_%_FinMes]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-068",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Complete_%_FinMes]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-069",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Etiqueta Meta]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-070",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Etiqueta Meta]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-071",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Etiqueta Meta]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-072",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[AVG_Saldo_Last]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-073",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[AVG_Saldo_Last]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-074",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Q_Clientes_Last]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-075",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Q_Clientes_Last]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-076",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Q_Cuentas_Last]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-077",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Q_Cuentas_Last]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-078",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Top25Pct]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-079",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Top25Pct]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-080",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Last_Valor_SinFormato]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-081",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_Last_Valor_SinFormato]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-082",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_MoM_Delta_SinFormato]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-083",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_MoM_Delta_SinFormato]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-084",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_YoY_Delta_SinFormato]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-085",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_YoY_Delta_SinFormato]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-086",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_YTD_Delta_SinFormato]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-087",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[1_YTD_Delta_SinFormato]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-088",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[TieneDatos]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-089",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[TieneDatos]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-090",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Tasa Ponderada]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-091",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Tasa Ponderada]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-092",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Medidas.tmdl",
+      "description": "Medida `[Tasa Ponderada]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-093",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Reporte (Panel)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-094",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Reporte (Panel)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-095",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Reporte (Panel)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-096",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Medida]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-097",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Medida]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-098",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Medida]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-099",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico Top 25]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-100",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico Top 25]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-101",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico Top 25]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-102",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Reporte (Exploración Profunda)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-103",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Reporte (Exploración Profunda)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-104",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Reporte (Exploración Profunda)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-105",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Reporte (Exploración)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-106",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Reporte (Exploración)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-107",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Reporte (Exploración)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-108",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Reporte (Top Variaciones)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-109",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Reporte (Top Variaciones)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-110",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Reporte (Top Variaciones)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-111",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Tooltip)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-112",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Tooltip)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-113",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Tooltip)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-114",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Segmentación Estrategica)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-115",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Segmentación Estrategica)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-116",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Segmentación Estrategica)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-117",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Segmentación Operativa)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-118",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Segmentación Operativa)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-119",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Segmentación Operativa)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-120",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Dirección)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-121",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Dirección)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-122",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Dirección)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-123",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Rango Tasa)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-124",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Rango Tasa)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-125",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Rango Tasa)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-126",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Moneda)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-127",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Moneda)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-128",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Moneda)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-129",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Tipo Cliente)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-130",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Tipo Cliente)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-131",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Tipo Cliente)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-132",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Producto)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-133",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Producto)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-134",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Gráfico (Producto)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-135",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Reporte (Tendencia)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-136",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Reporte (Tendencia)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-137",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/Parámetros.tmdl",
+      "description": "Medida `[Titulo Reporte (Tendencia)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-138",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Saldo]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-139",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Métrica Seleccionada]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-140",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Métrica Seleccionada]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-141",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Q Clientes]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-142",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Q Cuentas]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-143",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Q Cuentas]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-144",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Tasa Interes Ponderada]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-145",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Tasa Interes Ponderada]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-146",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Actual]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-147",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Actual]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-148",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Actual (txt)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-149",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Actual (txt)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-150",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Actual (txt)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-151",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Mes Anterior]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-152",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Mes Anterior]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-153",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Título Medida]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-154",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Título Medida]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-155",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Título Medida]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-156",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Mes Anterior (txt)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-157",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Mes Anterior (txt)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-158",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Mes Anterior (txt)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-159",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor MoM]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-160",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor MoM]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-161",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor MoM (txt)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-162",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor MoM (txt)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-163",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor MoM (txt)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-164",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[1_MoM_%]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-165",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[1_MoM_%]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-166",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Interanual]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-167",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Interanual]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-168",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Interanual (txt)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-169",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Interanual (txt)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-170",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Interanual (txt)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-171",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor YoY]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-172",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor YoY]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-173",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Cierre Año Anterior]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-174",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Cierre Año Anterior]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-175",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Cierre Año Anterior]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-176",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor YoY (txt)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-177",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor YoY (txt)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-178",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor YoY (txt)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-179",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor YTD]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-180",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor YTD]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-181",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor YTD]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-182",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Cierre Año Anterior (txt)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-183",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Cierre Año Anterior (txt)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-184",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Cierre Año Anterior (txt)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-185",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor YTD (txt)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-186",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor YTD (txt)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-187",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor YTD (txt)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-188",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Meta]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-189",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Meta]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-190",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Meta (txt)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-191",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Meta (txt)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-192",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Meta (txt)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-193",
+      "severity": "mejora",
+      "rule": "MEASURE-NO-FORMAT",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Métrica Seleccionada (txt)]` sin `formatString`.",
+      "recommendation": "Agregar `formatString` explícito (ej: `\"#,##0.00\"`, `\"0.00%\"`, `\"$#,##0\"`).",
+      "evidence": null
+    },
+    {
+      "id": "SM-194",
+      "severity": "observación",
+      "rule": "MEASURE-NO-FOLDER",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Métrica Seleccionada (txt)]` sin `displayFolder`.",
+      "recommendation": "Asignar un displayFolder para organizar medidas por categoría.",
+      "evidence": null
+    },
+    {
+      "id": "SM-195",
+      "severity": "observación",
+      "rule": "MEASURE-NO-DESCRIPTION",
+      "location": "tables/⚙ Medidas.tmdl",
+      "description": "Medida `[Valor Métrica Seleccionada (txt)]` sin descripción.",
+      "recommendation": "Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.",
+      "evidence": null
+    },
+    {
+      "id": "SM-196",
+      "severity": "mejora",
+      "rule": "DAX-USE-DIVIDE",
+      "location": "tables/DimTipoProducto.tmdl:102",
+      "description": "Posible división sin `DIVIDE()`: `Source = Sql.Database(\"synw-modeling-prod-westus2-001-ondemand.sql.azuresynapse.`",
+      "recommendation": "Reemplazar `/` por `DIVIDE(num, den, 0)` para evitar errores de división por cero.",
+      "evidence": null
+    },
+    {
+      "id": "SM-197",
+      "severity": "mejora",
+      "rule": "MODEL-AUTO-DATETIME",
+      "location": "model.tmdl",
+      "description": "Opción 'Auto Date/Time' habilitada (`__PBI_TimeIntelligenceEnabled = 1`). Esto genera tablas `LocalDateTable_*` ocultas por cada columna de fecha.",
+      "recommendation": "Desactivar en Power BI Desktop: Archivo → Opciones → Modelo actual → Inteligencia de tiempo → desmarcar. Usar únicamente `DimCalendario`.",
+      "evidence": null
+    },
+    {
+      "id": "SM-198",
+      "severity": "crítico",
+      "rule": "DIM-FECHA-NOT-MARKED",
+      "location": "tables/DimCalendario.tmdl",
+      "description": "La tabla `DimCalendario` no está marcada como tabla de fechas (`dataCategory: Time`).",
+      "recommendation": "En Power BI Desktop: Vista de modelo → Seleccionar tabla → Mark as date table. Asegura que time intelligence funcione correctamente.",
+      "evidence": null
+    },
+    {
+      "id": "SM-199",
+      "severity": "observación",
+      "rule": "REL-AUTO-DETECTED",
+      "location": "relationships.tmdl",
+      "description": "5 relaciones marcadas como `AutoDetected_*`.",
+      "recommendation": "Revisar manualmente que cada relación esté bien configurada. Power BI las crea automáticamente cuando detecta coincidencias de nombres.",
+      "evidence": null
+    },
+    {
+      "id": "SM-200",
+      "severity": "observación",
+      "rule": "REL-LOCAL-DATETABLE",
+      "location": "relationships.tmdl",
+      "description": "4 referencias a `LocalDateTable_*` en relaciones.",
+      "recommendation": "Se eliminarán automáticamente al desactivar Auto Date/Time.",
+      "evidence": null
+    }
+  ]
+}
