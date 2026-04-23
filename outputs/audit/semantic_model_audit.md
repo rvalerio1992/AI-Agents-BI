@@ -1,137 +1,82 @@
 # 🔍 Auditoría de Modelo Semántico — RPAUT084
 
 **Fecha:** 2026-04-23  
-**Tablas analizadas:** 19  
-**Score global:** **0/100**
-  **🔴 Requiere refactor**
+**Tablas analizadas:** 19
 
-## 📊 Resumen ejecutivo
+## 📊 Scores
 
-| Severidad | Cantidad | Peso |
-|---|---:|---:|
-| 🔴 Crítico | 1 | -20 pts |
-| ⚠️ Mejora | 55 | -5 pts |
-| ℹ️ Observación | 144 | -1 pt |
+| Dimensión | Score | Estado | Hallazgos |
+|---|---:|---|---:|
+| 📐 **Estructural** | **47/100** | 🟠 Necesita trabajo | 10 |
+| 📝 **Documentación** | **0/100** | 🔴 Requiere refactor | 190 |
+| 🎯 **Global** (70/30) | **33/100** | 🔴 Requiere refactor | 200 |
 
-**Total hallazgos:** 200
-
-## 🎯 Top reglas disparadas
-
-| Regla | Cantidad | ¿Qué significa? |
-|---|---:|---|
-| `MEASURE-NO-DESCRIPTION` | 67 | Medidas sin comentario explicativo |
-| `MEASURE-NO-FOLDER` | 65 | Medidas sin displayFolder |
-| `MEASURE-NO-FORMAT` | 35 | Medidas sin formatString |
-| `TABLE-DESCRIPTION` | 14 | Tablas sin descripción |
-| `NAMING-TABLE-STYLE` | 9 | Uso Fct/Dim en vez de FACT_/DIM_ (Promerica) |
-| `NAMING-TABLE` | 3 | Tabla con nombre genérico (Medidas, Tabla, etc.) |
-| `NAMING-MEASURES-TABLE` | 2 | Tabla de medidas sin prefijo `_` |
-| `DAX-USE-DIVIDE` | 1 | División sin DIVIDE() |
-| `MODEL-AUTO-DATETIME` | 1 | Auto Date/Time habilitado |
-| `DIM-FECHA-NOT-MARKED` | 1 | DimCalendario no marcada como tabla de fechas |
-| `REL-AUTO-DETECTED` | 1 | Relaciones auto-detectadas por Power BI |
-| `REL-LOCAL-DATETABLE` | 1 | Relaciones a tablas auto-generadas |
+> **Cómo leer esto:** El score estructural mide si el modelo funciona bien (relaciones, DAX, naming crítico). El score de documentación mide si está bien descrito (descriptions, folders, formats). Un modelo puede ser **estructuralmente perfecto pero mal documentado**, o viceversa.
 
 ---
 
-## 🔴 Hallazgos críticos
+## 📐 Análisis Estructural
 
-### SM-198 — `DIM-FECHA-NOT-MARKED`
-**Ubicación:** `tables/DimCalendario.tmdl`  
-**Problema:** La tabla `DimCalendario` no está marcada como tabla de fechas (`dataCategory: Time`).  
-**Recomendación:** En Power BI Desktop: Vista de modelo → Seleccionar tabla → Mark as date table. Asegura que time intelligence funcione correctamente.
+### 🔴 Críticos
 
-## ⚠️ Hallazgos de mejora (agrupados)
+**SM-198** `DIM-FECHA-NOT-MARKED` — `tables/DimCalendario.tmdl`  
+La tabla `DimCalendario` no está marcada como tabla de fechas (`dataCategory: Time`).  
+**→** En Power BI Desktop: Vista de modelo → Seleccionar tabla → Mark as date table. Asegura que time intelligence funcione correctamente.
 
-### MEASURE-NO-FORMAT (35 ocurrencias)
-**Recomendación:** Agregar `formatString` explícito (ej: `"#,##0.00"`, `"0.00%"`, `"$#,##0"`).
+### ⚠️ Mejoras
 
-**Ejemplos:**
-- `tables/Medidas.tmdl` — Medida `[1_Estado]` sin `formatString`.
-- `tables/Medidas.tmdl` — Medida `[1_Last_Valor (Eje)]` sin `formatString`.
-- `tables/Medidas.tmdl` — Medida `[1_Last_Valor (%)]` sin `formatString`.
-- `tables/Medidas.tmdl` — Medida `[Porcentaje Target (Ayer)]` sin `formatString`.
-- `tables/Medidas.tmdl` — Medida `[Porcentaje Target (Fin Mes Actual)]` sin `formatString`.
-- *... y 30 más*
+- **NAMING-MEASURES-TABLE** — `tables/Medidas.tmdl`: Tabla `Medidas` no usa convención Promerica (prefijo `_` para auxiliares o `CG_` para calculation groups).
+- **NAMING-MEASURES-TABLE** — `tables/Metricas.tmdl`: Tabla `Metricas` no usa convención Promerica (prefijo `_` para auxiliares o `CG_` para calculation groups).
+- **NAMING-TABLE** — `tables/Parámetros.tmdl`: Tabla `Parámetros` con nombre genérico, no sigue prefijo Promerica.
+- **NAMING-TABLE** — `tables/Tabla.tmdl`: Tabla `Tabla` con nombre genérico, no sigue prefijo Promerica.
+- **DAX-USE-DIVIDE** — `tables/DimTipoProducto.tmdl:102`: Posible división sin `DIVIDE()`: `Source = Sql.Database("synw-modeling-prod-westus2-001-ondemand.sql.azuresynapse.`
+- **MODEL-AUTO-DATETIME** — `model.tmdl`: Opción 'Auto Date/Time' habilitada (`__PBI_TimeIntelligenceEnabled = 1`). Esto genera tablas `LocalDateTable_*` ocultas por cada columna de fecha.
 
-### TABLE-DESCRIPTION (14 ocurrencias)
-**Recomendación:** Agregar descripción explicando el propósito y contexto de negocio.
+### ℹ️ Observaciones
 
-**Ejemplos:**
-- `tables/DimCalendario.tmdl` — Tabla `DimCalendario` no tiene descripción (`/// ...`).
-- `tables/DimCliente.tmdl` — Tabla `DimCliente` no tiene descripción (`/// ...`).
-- `tables/DimEstadoProducto.tmdl` — Tabla `DimEstadoProducto` no tiene descripción (`/// ...`).
-- `tables/DimMetas.tmdl` — Tabla `DimMetas` no tiene descripción (`/// ...`).
-- `tables/DimMoneda.tmdl` — Tabla `DimMoneda` no tiene descripción (`/// ...`).
-- *... y 9 más*
+- **NAMING-TABLE** — Tabla `⚙` no sigue convención FACT_/DIM_/BRIDGE_/PARAM_.
+- **REL-AUTO-DETECTED** — 5 relaciones marcadas como `AutoDetected_*`.
+- **REL-LOCAL-DATETABLE** — 4 referencias a `LocalDateTable_*` en relaciones.
 
-### NAMING-MEASURES-TABLE (2 ocurrencias)
-**Recomendación:** Renombrar a `_Medidas` o similar para marcarla como auxiliar oculta.
+---
 
-**Ejemplos:**
-- `tables/Medidas.tmdl` — Tabla `Medidas` no usa convención Promerica (prefijo `_` para auxiliares o `CG_` para calculation groups).
-- `tables/Metricas.tmdl` — Tabla `Metricas` no usa convención Promerica (prefijo `_` para auxiliares o `CG_` para calculation groups).
+## 📝 Análisis de Documentación
 
-### NAMING-TABLE (2 ocurrencias)
-**Recomendación:** Renombrar a `PARAM_Filtros` o similar siguiendo convención institucional.
-
-**Ejemplos:**
-- `tables/Parámetros.tmdl` — Tabla `Parámetros` con nombre genérico, no sigue prefijo Promerica.
-- `tables/Tabla.tmdl` — Tabla `Tabla` con nombre genérico, no sigue prefijo Promerica.
-
-### DAX-USE-DIVIDE (1 ocurrencias)
-**Recomendación:** Reemplazar `/` por `DIVIDE(num, den, 0)` para evitar errores de división por cero.
-
-**Ejemplos:**
-- `tables/DimTipoProducto.tmdl:102` — Posible división sin `DIVIDE()`: `Source = Sql.Database("synw-modeling-prod-westus2-001-ondemand.sql.azuresynapse.`
-
-### MODEL-AUTO-DATETIME (1 ocurrencias)
-**Recomendación:** Desactivar en Power BI Desktop: Archivo → Opciones → Modelo actual → Inteligencia de tiempo → desmarcar. Usar únicamente `DimCalendario`.
-
-**Ejemplos:**
-- `model.tmdl` — Opción 'Auto Date/Time' habilitada (`__PBI_TimeIntelligenceEnabled = 1`). Esto genera tablas `LocalDateTable_*` ocultas por cada columna de fecha.
-
-## ℹ️ Observaciones más frecuentes
-
-**`MEASURE-NO-DESCRIPTION`** — 67 casos  
-*Agregar `/// descripción` explicando lógica de negocio y unidad aplicable.*
-
-**`MEASURE-NO-FOLDER`** — 65 casos  
-*Asignar un displayFolder para organizar medidas por categoría.*
-
-**`NAMING-TABLE-STYLE`** — 9 casos  
-*Considerar migrar a estilo con underscore: FctProductos → FACT_Productos.*
-
-**`NAMING-TABLE`** — 1 casos  
-*Evaluar renombrado según tipo.*
-
-**`REL-AUTO-DETECTED`** — 1 casos  
-*Revisar manualmente que cada relación esté bien configurada. Power BI las crea automáticamente cuando detecta coincidencias de nombres.*
+| Regla | Casos | Severidad | Impacto |
+|---|---:|---|---|
+| Medidas sin descripción | 67 | ℹ️ observación | Usuarios no saben qué calcula la medida |
+| Medidas sin displayFolder | 65 | ℹ️ observación | Panel de campos desordenado |
+| Medidas sin formatString | 35 | ⚠️ mejora | Visualizaciones inconsistentes |
+| Tablas sin descripción | 14 | ⚠️ mejora | Difícil entender propósito de cada tabla |
+| Estilo Fct/Dim en vez de FACT_/DIM_ | 9 | ℹ️ observación | Inconsistencia con convención Promerica |
 
 ---
 
 ## 📌 Plan de acción priorizado
 
-
-### Prioridad ALTA (acción inmediata)
+### 🔴 Urgente (estructural)
 1. **Marcar `DimCalendario` como tabla de fechas** — habilita time intelligence correctamente.
-2. **Desactivar Auto Date/Time** — elimina 5 tablas auto-generadas + 5 relaciones innecesarias.
+2. **Desactivar Auto Date/Time** en opciones del modelo — elimina 5 `LocalDateTable_*` auto-generadas.
+3. **Revisar las 9 relaciones `AutoDetected_*`** — confirmar cardinalidad y dirección.
 
-### Prioridad MEDIA (esta semana)
-3. **Agregar `formatString` a las 35 medidas sin formato** — especialmente las que devuelven porcentajes, montos o fechas.
-4. **Renombrar tablas genéricas** (`Medidas` → `_Medidas`, `Tabla` → `_Auxiliar`, `Parámetros` → `PARAM_Filtros`).
-5. **Revisar las 9 relaciones `AutoDetected_*`** — confirmar que la cardinalidad y dirección sean correctas.
+### 🟠 Importante (estructura)
+4. **Renombrar tablas genéricas**: `Medidas` → `_Medidas`, `Parámetros` → `PARAM_Filtros`, `Tabla` → `_Auxiliar` o eliminar.
+5. **Migrar estilo `Fct/Dim` → `FACT_/DIM_`** (opcional, alineación con convención institucional).
 
-### Prioridad BAJA (mejora continua)
-6. **Asignar `displayFolder` a las 65 medidas sin carpeta** — organiza el panel de campos.
-7. **Agregar descripciones (`///`) a medidas y tablas clave** — especialmente `FctProductos`, `Valor Métrica Seleccionada`, `Tasa Ponderada`.
-8. **Evaluar migración de estilo `Fct/Dim` a `FACT_/DIM_`** — alinear con convención institucional Promerica.
+### 🟡 Mejora continua (documentación)
+6. **Agregar `formatString` a las 35 medidas sin formato** — el `Model Documenter` (próximo agente) puede hacerlo de forma segura.
+7. **Asignar `displayFolder` a las 65 medidas sin carpeta** — idem, automatizable sin riesgo.
+8. **Generar descripciones (`///`) para medidas y tablas** — automatizable para el caso técnico; descripciones de negocio requieren validación humana.
 
 ---
 
-## 💡 Nota sobre el score
+## 🤖 Siguiente paso: Model Documenter
 
-El score de **0/100** refleja principalmente la **ausencia masiva de metadata** (descripciones, displayFolders, formatStrings), no problemas estructurales graves. El modelo tiene solo **1 hallazgo crítico**, y la arquitectura base es sólida (fuentes GOLD, relaciones coherentes, medidas funcionales).
-
-El modelo es **funcionalmente correcto**. Lo que falta es **documentación y organización** — un trabajo de ~2-3 horas bien invertidas.
+Los hallazgos de **documentación (190)** son candidatos ideales para automatizar.
+Un próximo agente **Model Documenter** podrá:
+- ✅ Agregar `formatString` inferido del `dataType` y contexto
+- ✅ Asignar `displayFolder` según categoría detectada
+- ✅ Generar descripciones técnicas con marca de "confianza baja/alta"
+- ❌ NO modificar nombres (eso rompe DAX y PBIR)
+- ❌ NO tocar lógica DAX ni relaciones
 

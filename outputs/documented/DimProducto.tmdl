@@ -1,0 +1,107 @@
+/// Tabla de dimensión para Producto. [TODO: validar con negocio] [confianza: media]
+table DimProducto
+	lineageTag: e5b36224-05f6-424f-a6f3-158758dfc3dd
+
+	column COD_PRODUCTO
+		dataType: string
+		lineageTag: 0be03a88-da5e-4aee-bede-ec17811cb8c8
+		summarizeBy: none
+		sourceColumn: COD_PRODUCTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column FEC_APERTURA
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 244ddd02-0eed-4502-a4dd-93dc563929b3
+		summarizeBy: none
+		sourceColumn: FEC_APERTURA
+
+		variation Variación
+			isDefault
+			relationship: 0c7e304e-25b0-4588-b1ac-87b17e079307
+			defaultHierarchy: LocalDateTable_385a457a-20df-4be8-ac4f-190433881064.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column FEC_VENCIMIENTO
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a35d58ae-88a4-4b37-95bd-c77ee3969a15
+		summarizeBy: none
+		sourceColumn: FEC_VENCIMIENTO
+
+		variation Variación
+			isDefault
+			relationship: bb684b22-c498-40f2-974b-ffac28185698
+			defaultHierarchy: LocalDateTable_00444826-d1ae-48ed-9fe1-f6339b8a289a.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column MONTO_INICIAL
+		dataType: double
+		lineageTag: 3bdd0a23-2280-42c3-b154-02bc8f42a790
+		summarizeBy: sum
+		sourceColumn: MONTO_INICIAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CUOTA_MENSUAL
+		dataType: double
+		lineageTag: 4002df8b-63ce-4cbe-9065-22b4674645ad
+		summarizeBy: sum
+		sourceColumn: CUOTA_MENSUAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TASA_INICIAL
+		dataType: double
+		lineageTag: e234421a-a0fe-4045-a9c9-8cdcdc275273
+		summarizeBy: sum
+		sourceColumn: TASA_INICIAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TIPO_TASA
+		dataType: string
+		lineageTag: d067e265-2de4-4b46-9ae9-7d506ba864a8
+		summarizeBy: none
+		sourceColumn: TIPO_TASA
+
+		annotation SummarizationSetBy = Automatic
+
+	column PLAZO_DIAS
+		dataType: int64
+		formatString: 0
+		lineageTag: 112dda52-94cf-4524-a008-7d18674da826
+		summarizeBy: sum
+		sourceColumn: PLAZO_DIAS
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimProducto = m
+		mode: import
+		queryGroup: Dimensiones
+		source =
+				let
+				   // Data Steward: Nancy Rebeca García Ureña
+				   Source = Sql.Database(
+				   "synw-modeling-prod-westus2-001-ondemand.sql.azuresynapse.net",
+				   "gold",
+				   [Query = "SELECT * FROM dbo.dimproducto"]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Source,{{"FEC_APERTURA", type date}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

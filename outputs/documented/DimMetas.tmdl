@@ -1,0 +1,184 @@
+/// Tabla de dimensión para Metas. [TODO: validar con negocio] [confianza: media]
+table DimMetas
+	lineageTag: db701368-e06b-42fd-8689-2eb09641c670
+
+	column FEC_CORTE
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 7a53604a-b944-48c2-81bc-bbfa51ccfe92
+		summarizeBy: none
+		sourceColumn: FEC_CORTE
+
+		variation Variación
+			isDefault
+			relationship: 08188dc6-80bd-4e53-8b36-3e7d69d4be9e
+			defaultHierarchy: LocalDateTable_a0176f28-d511-490b-aa1c-fc4edc033051.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CRECIMIENTO_YTD_%
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 7a7894eb-fc76-4f47-b5ea-6ee1c675f638
+		summarizeBy: sum
+		sourceColumn: CRECIMIENTO_YTD_%
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimMetas = m
+		mode: import
+		queryGroup: Dimensiones
+		source =
+				let
+				    // ───────────────────────────────────────────────────────────────
+				    // 0. ORIGEN  ►  Reemplázalo por tu fuente real si es necesario
+				    // ───────────────────────────────────────────────────────────────
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("ddI7agQxEATQq5iJB9TVKvXnHAYnywYLTgwGB+v7Y43lzK1MEjxKXdLtdrw+Pt+/ni9vH8/vx3EeHU3QVHTMjbuTVJVrHYaRItdaTgH0uJ//uEYTLXmyWwzG4oqo+JXeKx7zyEPSFu/aSy5NWHJQxI1cnL4LH6VWhztSlzbusq3UVAlz/hUXHbtwL/mwTNNYxUE2k08eJfduHNFXcdBejz4vnyVPwEaPVRxou3RIxXNOHsy+moNF/erSUP65VFMhY1WHxDa9/HPJQaOo/3KFzebvPw==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [INDICADOR = _t, FEC_CORTE = _t, #"VALOR BASE" = _t, META = _t, #"CRECIMIENTO_YTD_%" = _t])
+				,
+				
+				    // ───────────────────────────────────────────────────────────────
+				    // 1. TIPOS CORRECTOS
+				    // ───────────────────────────────────────────────────────────────
+				    #"Tipos correctos" =
+				        Table.TransformColumnTypes(
+				            Source,
+				            {{"INDICADOR", type text},
+				             {"FEC_CORTE", type date},
+				             {"VALOR BASE", Int64.Type},
+				             {"META", Int64.Type},
+				             {"CRECIMIENTO_YTD_%", type number}}
+				        ),
+				
+				    // ───────────────────────────────────────────────────────────────
+				    // 2. AGREGAR ANCLA 1-ENE (YTD = 0) POR INDICADOR
+				    // ───────────────────────────────────────────────────────────────
+				    Agregar1Ene =
+				        let
+				            agrupado =
+				                Table.Group(
+				                    #"Tipos correctos",
+				                    {"INDICADOR"},
+				                    {{"Todas", each _, type table}}
+				                ),
+				            listaConExtra =
+				                List.Transform(
+				                    agrupado[Todas],
+				                    (t) =>
+				                        let
+				                            firstDate = List.Min(t[FEC_CORTE]),
+				                            firstYear = Date.Year(firstDate),
+				                            firstDay  = #date(firstYear,1,1),
+				                            exists    = List.Contains(t[FEC_CORTE], firstDay),
+				                            extraRow  =
+				                                if exists then
+				                                    #table({}, {})
+				                                else
+				                                    #table(
+				                                        Table.ColumnNames(t),
+				                                        {{ t{0}[INDICADOR],
+				                                           firstDay,
+				                                           t{0}[VALOR BASE],
+				                                           t{0}[META],
+				                                           0.0 }}
+				                                    )
+				                        in
+				                            Table.Combine({t, extraRow})
+				                )
+				        in
+				            Table.Combine(listaConExtra),
+				
+				    // ───────────────────────────────────────────────────────────────
+				    // 3. ORDENAR Y CREAR ÍNDICE (puntos-ancla)
+				    // ───────────────────────────────────────────────────────────────
+				    #"Ordenado" =
+				        Table.Sort(Agregar1Ene, {{"FEC_CORTE", Order.Ascending}}),
+				    #"Con índice" =
+				        Table.AddIndexColumn(#"Ordenado", "AnchorIdx", 0, 1, Int64.Type),
+				
+				    // ───────────────────────────────────────────────────────────────
+				    // 4. GENERAR TODAS LAS FECHAS DEL AÑO
+				    // ───────────────────────────────────────────────────────────────
+				    Inicio = Date.StartOfYear(List.Min(#"Con índice"[FEC_CORTE])),
+				    Fin    = Date.EndOfYear  (List.Max(#"Con índice"[FEC_CORTE])),
+				    Dias   = List.Dates(Inicio, Duration.Days(Fin - Inicio) + 1, #duration(1,0,0,0)),
+				    TblDias = Table.FromList(Dias, Splitter.SplitByNothing(), {"FEC_CORTE"}),
+				
+				    // ───────────────────────────────────────────────────────────────
+				    // 5. UNIR ANCLA ANTERIOR Y RELLENAR
+				    // ───────────────────────────────────────────────────────────────
+				    JoinPrev =
+				        Table.NestedJoin(
+				            TblDias, {"FEC_CORTE"},
+				            #"Con índice", {"FEC_CORTE"},
+				            "Prev", JoinKind.LeftOuter
+				        ),
+				    ExpandPrev =
+				        Table.ExpandTableColumn(
+				            JoinPrev, "Prev",
+				            {"AnchorIdx","FEC_CORTE","CRECIMIENTO_YTD_%"},
+				            {"AnchorIdx","PrevDate","PrevYTD"}
+				        ),
+				    FillPrev = Table.FillDown(ExpandPrev, {"AnchorIdx","PrevDate","PrevYTD"}),
+				
+				    // ───────────────────────────────────────────────────────────────
+				    // 6. LOCALIZAR SIGUIENTE ANCLA
+				    // ───────────────────────────────────────────────────────────────
+				    AddNextIdx =
+				        Table.AddColumn(
+				            FillPrev, "NextIdx",
+				            each if [AnchorIdx] = null then null else [AnchorIdx] + 1,
+				            Int64.Type
+				        ),
+				    JoinNext =
+				        Table.NestedJoin(
+				            AddNextIdx, {"NextIdx"},
+				            #"Con índice", {"AnchorIdx"},
+				            "Next", JoinKind.LeftOuter
+				        ),
+				    ExpandNext =
+				        Table.ExpandTableColumn(
+				            JoinNext, "Next",
+				            {"FEC_CORTE","CRECIMIENTO_YTD_%"},
+				            {"NextDate","NextYTD"}
+				        ),
+				
+				    // ───────────────────────────────────────────────────────────────
+				    // 7. INTERPOLACIÓN LINEAL
+				    // ───────────────────────────────────────────────────────────────
+				    Interp =
+				        Table.AddColumn(
+				            ExpandNext,
+				            "CRECIMIENTO_YTD_% (DIARIO)",
+				            each
+				                let
+				                    d  = [FEC_CORTE],
+				                    d0 = [PrevDate],
+				                    d1 = [NextDate],
+				                    y0 = [PrevYTD],
+				                    y1 = [NextYTD]
+				                in
+				                    if y0 = null then null
+				                    else if d1 = null or d1 = d0 then y0
+				                    else y0 + (y1 - y0) * Duration.Days(d - d0) / Duration.Days(d1 - d0),
+				            type number
+				        ),
+				
+				    // ───────────────────────────────────────────────────────────────
+				    // 8. RESULTADO FINAL
+				    // ───────────────────────────────────────────────────────────────
+				    Resultado =
+				        Table.SelectColumns(
+				            Interp,
+				            {"FEC_CORTE","CRECIMIENTO_YTD_% (DIARIO)"}
+				        ),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(Resultado,{{"CRECIMIENTO_YTD_% (DIARIO)", "CRECIMIENTO_YTD_%"}}),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Columnas con nombre cambiado",{{"FEC_CORTE", type date}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

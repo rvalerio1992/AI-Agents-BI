@@ -1,0 +1,218 @@
+/// Tabla de hechos que contiene registros de FctProductos. [TODO: validar con negocio] [confianza: media]
+table FctProductos
+	lineageTag: e93a3a8c-322e-4fa1-aa9c-2eb7f9564140
+
+	column FEC_CORTE
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: c29b963d-aec1-4028-98fa-015a138e54cb
+		summarizeBy: none
+		sourceColumn: FEC_CORTE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column COD_CLIENTE
+		dataType: string
+		lineageTag: f03387e7-fa49-413c-9faf-ae298ee96b4e
+		summarizeBy: none
+		sourceColumn: COD_CLIENTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_PRODUCTO
+		dataType: string
+		lineageTag: 393fadfe-e200-41d1-8b66-c21f88136422
+		summarizeBy: none
+		sourceColumn: COD_PRODUCTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_TIPO_PRODUCTO
+		dataType: string
+		lineageTag: ad62a7b7-e54a-431b-801e-56a4060acce5
+		summarizeBy: none
+		sourceColumn: COD_TIPO_PRODUCTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_MONEDA
+		dataType: string
+		lineageTag: 809dab41-28a7-483e-8187-2d92806d17ed
+		summarizeBy: none
+		sourceColumn: COD_MONEDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_PROMOTOR
+		dataType: string
+		lineageTag: 46e04095-6643-4e80-a79d-e6b29381e1db
+		summarizeBy: none
+		sourceColumn: COD_PROMOTOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column VALOR
+		dataType: double
+		lineageTag: c767ec15-5944-4e40-902f-b5eff0764d95
+		summarizeBy: sum
+		sourceColumn: VALOR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NIVEL_0 = "VALOR TOTAL"//UPPER([Titulo Medida])
+		lineageTag: 7b40604e-911c-488c-b612-605409fd5aac
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column NIVEL_1 = ```
+			
+			VAR _cod = [COD_PRODUCTO]
+			VAR _sub = UPPER ( TRIM ( [SUBTIPO_PRODUCTO] ) )
+			VAR _dir = RELATED ( DimPromotor[DIRECCION] )
+			RETURN
+			SWITCH (
+			    TRUE(),
+			    LEFT ( _cod, 2 ) = "TC" || LEFT ( _cod, 2 ) = "XF", "BANCA PERSONAS",
+			
+			    -- SUBTIPO_PRODUCTO → Resultado
+			    _sub IN { "EXTRA FINANCIAMIENTOS", "REVOLVENTE", "PERSONAL PREFERENTE", "HIPOTECARIO", "PRENDARIO" }, "BANCA PERSONAS",
+			    _sub IN { "COMERCIAL", "EMPRESARIAL", "SBD"}, "BANCA EMPRESAS",
+			
+			    _dir = "SIN DIRECCION", "TESORERIA",
+			    ISBLANK ( _dir ), "TESORERIA",
+			    _dir
+			)
+			
+			
+			```
+		lineageTag: 3263bbb7-c81c-444e-9235-922926128e48
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column NIVEL_2 = ```
+			SWITCH(TRUE(),
+			[NIVEL_1]="BANCA PERSONAS" && ISBLANK(RELATED(DimCliente[SEGMENTACION_ESTRATEGICA])), "MASIVO",
+			[NIVEL_1]="BANCA PERSONAS", RELATED(DimCliente[SEGMENTACION_ESTRATEGICA]),
+			[NIVEL_1]="BANCA EMPRESAS" && RELATED(DimCliente[TIPO_CLIENTE])="JURIDICA" && RELATED(DimCliente[SEGMENTACION_OPERATIVA])="ND", "PYME",
+			[NIVEL_1]="BANCA EMPRESAS" && RELATED(DimCliente[TIPO_CLIENTE])="JURIDICA", RELATED(DimCliente[SEGMENTACION_OPERATIVA]), 
+			[NIVEL_1]="BANCA EMPRESAS", "PYME", 
+			[NIVEL_1]="BANCA PRIVADA" && RELATED(DimPromotor[GERENCIA])="BANCA PRIVADA GERENCIA","GERENCIA",
+			 [NIVEL_1]="BANCA PRIVADA" && RELATED(DimPromotor[GERENCIA])="BANCA PRIVADA EJECUTIVOS","EJECUTIVOS",
+			"TESORERIA")
+			```
+		lineageTag: 820def74-3182-484f-8459-82475844db73
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_ESTADO_PRODUCTO
+		dataType: string
+		lineageTag: d77e03b9-5bf9-4f74-93c6-023e53f4811f
+		summarizeBy: none
+		sourceColumn: COD_ESTADO_PRODUCTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column NOMBRE = RELATED(DimCliente[NOMBRE])
+		lineageTag: a7f62790-86ca-4435-8e23-0900552b6fef
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column PERIODO_FLAG = ```
+			
+			VAR Fecha = 'FctProductos'[FEC_CORTE]
+			VAR Hoy   = TODAY()
+			
+			VAR MesActual     = YEAR(Fecha) = YEAR(Hoy)
+			                 && MONTH(Fecha) = MONTH(Hoy)
+			
+			VAR MesAnterior   = YEAR(Fecha) = YEAR(EOMONTH(Hoy,-1))
+			                 && MONTH(Fecha) = MONTH(EOMONTH(Hoy,-1))
+			
+			VAR Interanual    = YEAR(Fecha) = YEAR(Hoy) - 1
+			                 && MONTH(Fecha) = MONTH(Hoy)
+			
+			VAR DicAnterior   = YEAR(Fecha) = YEAR(Hoy) - 1
+			                 && MONTH(Fecha) = 12            -- diciembre
+			
+			RETURN
+			    IF(MesActual || MesAnterior || Interanual || DicAnterior, 1, 0)
+			
+			```
+		formatString: 0
+		lineageTag: 555b5b8c-ce41-4e16-8c2d-cc797a5a9545
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_PRODUCTO = ```
+			RELATED(DimTipoProducto[TIPO_PRODUCTO])
+			
+			
+			```
+		lineageTag: a1fbe905-0cf0-49f9-97b7-c96ba95acc66
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column SUBTIPO_PRODUCTO = RELATED(DimTipoProducto[SUBTIPO_PRODUCTO])
+		lineageTag: b0cc4f99-bc3b-4bc5-86f6-adced13a316e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column ORDEN = RELATED(DimTipoProducto[ORDEN])
+		formatString: 0
+		lineageTag: 37d5b420-362d-4736-9596-cf26f350e111
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column TASA_INTERES
+		dataType: double
+		lineageTag: 011aa0c6-d5d9-480c-94a4-b154e9cca891
+		summarizeBy: sum
+		sourceColumn: TASA_INTERES
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column NIVEL_TASA =
+			SWITCH(TRUE(),
+			[TASA_INTERES]<1,"[0% a 1%[",
+			[TASA_INTERES]<3,"[1% a 3%[",
+			[TASA_INTERES]<4,"[3% a 4%[",
+			[TASA_INTERES]<5,"[4% a 5%[",
+			">= 5%")
+		lineageTag: 768fe51e-cb1d-47ca-9e7e-328497527606
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FctProductos = m
+		mode: import
+		queryGroup: Hechos
+		source =
+				let
+				   // Data Steward: Nancy Rebeca García Ureña
+				   Source = Sql.Database("synw-modeling-prod-westus2-001-ondemand.sql.azuresynapse.net", "gold", [Query="SELECT#(lf)    FEC_CORTE,#(lf)    COD_CLIENTE,#(lf)    COD_PRODUCTO,#(lf)    COD_TIPO_PRODUCTO,#(lf)    COD_MONEDA,#(lf)    COD_PROMOTOR,#(lf)    COD_ESTADO_PRODUCTO,#(lf)    SALDO_PRODUCTO AS VALOR,#(lf)    TASA_INTERES_PRODUCTO AS TASA_INTERES#(lf)FROM #(lf)    dbo.fctproductos#(lf)WHERE#(lf)    LEFT(COD_PRODUCTO, 3) IN ('CE_', 'CDI', 'PR_', 'TC_', 'XF_')#(lf)    AND YEAR(FEC_CORTE) >= YEAR(GETDATE()) - 1#(lf)"]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Source,{{"FEC_CORTE", type date}}),
+				    #"Texto recortado" = Table.TransformColumns(#"Tipo cambiado",{{"COD_PROMOTOR", Text.Trim, type text}}),
+				    #"Valor reemplazado" = Table.ReplaceValue(#"Texto recortado","MSOJO_IB","MSOJ_IB",Replacer.ReplaceText,{"COD_PROMOTOR"})
+				in
+				  #"Valor reemplazado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

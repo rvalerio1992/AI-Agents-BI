@@ -1,0 +1,424 @@
+/// Tabla auxiliar que agrupa medidas calculadas. [confianza: alta]
+table '⚙ Medidas'
+	lineageTag: 011684f0-7858-42aa-9dbd-ac7ca809a52a
+
+	/// Suma del campo VALOR de FctProductos. [confianza: alta]
+	measure Saldo = SUM('FctProductos'[VALOR])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: Medidas Primarias
+		lineageTag: 69a14944-67eb-4bb6-b88d-a8d2d8d5b585
+
+		changedProperty = IsHidden
+
+	/// [TODO: validar descripción con negocio] [confianza: baja]
+	measure 'Valor Métrica Seleccionada' = ```
+			
+			VAR sel = SELECTEDVALUE( Metricas[Metrica], "Saldo" )  -- valor por defecto
+			RETURN
+			SWITCH(
+			    sel,
+			    "Saldo",      ROUND([Saldo],0),
+			    "Q Clientes", [Q Clientes],
+			    "Q Cuentas", [Q Cuentas],
+			    "Tasa Ponderada", [Tasa Interes Ponderada]
+			)
+			
+			```
+		displayFolder: Sin categorizar
+		formatString: #,0.00
+		lineageTag: 2e2c1b87-e6f6-4ad1-8da4-220844a31c5a
+
+		changedProperty = IsHidden
+
+	/// Conteo distinto de COD_CLIENTE en FctProductos. [confianza: alta]
+	measure 'Q Clientes' =
+			
+			DISTINCTCOUNT('FctProductos'[COD_CLIENTE])
+		formatString: 0
+		displayFolder: Medidas Primarias
+		lineageTag: 1d5a0dc5-12ba-4799-b54e-35a1517e820f
+
+		changedProperty = IsHidden
+
+	/// Conteo distinto de COD_PRODUCTO en FctProductos. [confianza: alta]
+	measure 'Q Cuentas' =
+			
+			DISTINCTCOUNT('FctProductos'[COD_PRODUCTO])
+		displayFolder: Conteos
+		formatString: 0
+		lineageTag: 745a56d4-4ed5-4385-b937-abead154e242
+
+	/// Promedio ponderado calculado con SUMX sobre la tabla de hechos. [confianza: media]
+	measure 'Tasa Interes Ponderada' =
+			
+			VAR TasaCalc =
+			    CALCULATE(
+			        DIVIDE(
+			            SUMX(
+			                FctProductos,
+			                FctProductos[TASA_INTERES] * FctProductos[VALOR]
+			            ),
+			            SUM(FctProductos[VALOR])
+			        )
+			    )
+			RETURN
+			    IF(ISBLANK(TasaCalc), 0, TasaCalc)
+		displayFolder: Indicadores
+		formatString: 0.00
+		lineageTag: a37da7e8-d81e-4a2c-a17d-484a12f953f2
+
+	/// [TODO: validar descripción con negocio] [confianza: baja]
+	measure 'Valor Actual' = ```
+			
+			VAR _UltimaFechaPorCore =
+			    CALCULATE (
+			        /* Entre todas las fechas posibles, quédate con la mayor
+			           que produzca un valor no BLANK de [1_0] en el contexto
+			           del TIPO_PRODUCTO_CORE actual                        */
+			        MAXX (
+			            FILTER (
+			                ALL ( 'FctProductos'[FEC_CORTE] ),
+			                NOT ISBLANK ( CALCULATE ( [Valor Métrica Seleccionada] ) )
+			            ),
+			            'FctProductos'[FEC_CORTE]
+			        ),
+			        -- quita cualquier filtro de fecha que venga del visual
+			        REMOVEFILTERS ( 'FctProductos'[FEC_CORTE] ),
+			        -- conserva el filtro del core (clave para que sea “por core”)
+			        KEEPFILTERS ( VALUES ( 'DimTipoProducto'[TIPO_PRODUCTO_CORE] ) )
+			    )
+			RETURN
+			IF (
+			    NOT ISBLANK ( _UltimaFechaPorCore ),
+			    CALCULATE (
+			        [Valor Métrica Seleccionada],
+			        KEEPFILTERS ( 'FctProductos'[FEC_CORTE] = _UltimaFechaPorCore )
+			    )
+			)
+			
+			```
+		displayFolder: Medidas Primarias
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: fba795f0-57fa-4e49-afad-0cad7e6f61fc
+
+		changedProperty = IsHidden
+
+	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+	measure 'Valor Actual (txt)' = ```
+			
+			VAR v   = [Valor Actual]
+			VAR sel = SELECTEDVALUE( Metricas[Metrica], "" )
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    sel = "Saldo",          FORMAT( v/1000000, "$#,##0 ""MM""" ),   -- sin escalar: ya está en MM
+			    sel = "Tasa Ponderada", FORMAT( v/100, "0.00%" ),           -- porcentaje con 2 decimales
+			                           FORMAT( v, "#,0" )               -- entero para el resto
+			)
+			
+			```
+		formatString: "\$#,0.00"
+		displayFolder: Medidas Primarias
+		lineageTag: 9adf2518-3629-4e15-8f39-db866ee1af35
+
+	/// Fecha máxima disponible en la tabla de hechos, ignorando filtros de contexto. [confianza: alta]
+	measure 'Valor Mes Anterior' = ```
+			
+			CALCULATE(
+			    [Valor Métrica Seleccionada], 
+			    FILTER(
+			        'FctProductos', 
+			        'FctProductos'[FEC_CORTE] = EOMONTH(CALCULATE(MAX('FctProductos'[FEC_CORTE]), ALL('FctProductos')), -1)
+			    )
+			)
+			
+			```
+		displayFolder: Comparativos
+		formatString: $#,##0,, "MM"
+		lineageTag: 64b5ab6f-f4c0-41ef-bcaa-c127a5393301
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	/// [TODO: validar descripción con negocio] [confianza: baja]
+	measure 'Título Medida' = ```
+			
+			VAR sel =
+			    IF(
+			        HASONEVALUE('DimTipoProducto'[TIPO_PRODUCTO]),
+			        SELECTEDVALUE('DimTipoProducto'[TIPO_PRODUCTO]),
+			        BLANK()
+			    )
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(sel),                      "Saldos Pasivos",   -- nada o múltiple selección
+			    sel = "CUENTA DE EFECTIVO",        "Saldo Vista",
+			    sel = "CERTIFICADO",               "Saldo Plazo",
+			                                       "Saldos Pasivos"    -- cualquier otro valor
+			)
+			
+			```
+		formatString: "#,##0.00"
+		displayFolder: Sin categorizar
+		lineageTag: 31cf2aa2-0ceb-40ca-b758-3bee0cc08cc6
+
+	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+	measure 'Valor Mes Anterior (txt)' = ```
+			
+			VAR v   = [Valor Mes Anterior]
+			VAR sel = SELECTEDVALUE( Metricas[Metrica], "" )
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    sel = "Saldo",          FORMAT( v/1000000, "$#,##0 ""MM""" ),  -- Saldo en MM
+			    sel = "Tasa Ponderada", FORMAT( v/100, "0.00%" ),              -- Tasa como %
+			                             FORMAT( v, "#,0" )                    -- Resto: entero
+			)
+			
+			```
+		formatString: "\$#,0.00"
+		displayFolder: Comparativos
+		lineageTag: 7b414862-46a5-4777-af40-974cf8332db7
+
+	/// Diferencia entre [Valor Actual] y [Valor Mes Anterior]. [confianza: alta]
+	measure 'Valor MoM' = [Valor Actual]-[Valor Mes Anterior]
+		displayFolder: Comparativos
+		formatString: $#,##0 "MM"
+		lineageTag: 7716370d-b87b-4146-a680-f2b2ca43bf3c
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+	measure 'Valor MoM (txt)' = ```
+			
+			VAR v   = [Valor MoM]
+			VAR sel = SELECTEDVALUE( Metricas[Metrica], "" )
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    sel = "Saldo",          FORMAT( v/1000000, "$#,##0 ""MM""" ),  -- Saldo en MM
+			    sel = "Tasa Ponderada", FORMAT( v/100, "0.00%" ),              -- Tasa como %
+			                             FORMAT( v, "#,0" )                    -- Resto: entero
+			)
+			
+			```
+		formatString: "#,##0.00"
+		displayFolder: Comparativos
+		lineageTag: 3096831c-1b6f-4f90-ad5a-89f08671e0cf
+
+	/// Ratio entre [Valor MoM] y [Valor Mes Anterior], con manejo seguro de divisor cero. [confianza: alta]
+	measure 1_MoM_% = DIVIDE([Valor MoM], [Valor Mes Anterior], 1)
+		displayFolder: Comparativos
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: d5b1af4f-1693-4469-bf8d-fc88fdb4798c
+
+		changedProperty = IsHidden
+
+	/// Fecha máxima disponible en la tabla de hechos, ignorando filtros de contexto. [confianza: alta]
+	measure 'Valor Interanual' = ```
+			
+			CALCULATE(
+			    [Valor Métrica Seleccionada], 
+			    FILTER(
+			        'FctProductos', 
+			        'FctProductos'[FEC_CORTE] = EOMONTH(CALCULATE(MAX('FctProductos'[FEC_CORTE]), ALL('FctProductos')), -12)
+			        )
+			)
+			```
+		displayFolder: Comparativos
+		formatString: $#,##0,, "MM"
+		lineageTag: 150f2355-7a12-416e-8ea4-1de93c91be59
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+	measure 'Valor Interanual (txt)' = ```
+			
+			VAR v   = [Valor Interanual]
+			VAR sel = SELECTEDVALUE( Metricas[Metrica], "" )
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    sel = "Saldo",          FORMAT( v/1000000, "$#,##0 ""MM""" ),  -- Saldo en MM
+			    sel = "Tasa Ponderada", FORMAT( v/100, "0.00%" ),              -- Tasa como %
+			                             FORMAT( v, "#,0" )                    -- Resto: entero
+			)
+			
+			```
+		formatString: "\$#,0.00"
+		displayFolder: Comparativos
+		lineageTag: ec94924b-03ca-48bb-b902-b13aaaa4626e
+
+	/// Diferencia entre [Valor Actual] y [Valor Interanual]. [confianza: alta]
+	measure 'Valor YoY' = [Valor Actual]-[Valor Interanual]
+		displayFolder: Comparativos
+		formatString: $#,##0,, "MM"
+		lineageTag: 0b40d97d-85d6-462b-9955-1679361b8585
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	/// Fecha máxima disponible en la tabla de hechos, ignorando filtros de contexto. [confianza: alta]
+	measure 'Valor Cierre Año Anterior' = ```
+			
+			CALCULATE(
+			    [Valor Métrica Seleccionada], 
+			    FILTER(
+			        'FctProductos', 
+			        'FctProductos'[FEC_CORTE] = DATE(YEAR(CALCULATE(MAX('FctProductos'[FEC_CORTE]), ALL('FctProductos'))) - 1, 12, 31)
+			        )
+			)
+			
+			```
+		formatString: "\$#,0.00"
+		displayFolder: Comparativos
+		lineageTag: 24813518-ff57-4f98-9b3c-f618eb20f7e9
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+	measure 'Valor YoY (txt)' = ```
+			
+			VAR v   = [Valor YoY]
+			VAR sel = SELECTEDVALUE( Metricas[Metrica], "" )
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    sel = "Saldo",          FORMAT( v/1000000, "$#,##0 ""MM""" ),  -- Saldo en MM
+			    sel = "Tasa Ponderada", FORMAT( v/100, "0.00%" ),              -- Tasa como %
+			                             FORMAT( v, "#,0" )                    -- Resto: entero
+			)
+			
+			```
+		formatString: "\$#,0.00"
+		displayFolder: Comparativos
+		lineageTag: 18f468e4-a0b3-49f2-82cf-e3c1dbbabe93
+
+	/// Diferencia entre [Valor Actual] y [Valor Cierre Año Anterior]. [confianza: alta]
+	measure 'Valor YTD' = [Valor Actual]-[Valor Cierre Año Anterior]
+		formatString: "\$#,0.00"
+		displayFolder: Comparativos
+		lineageTag: 73d40fa0-9015-4a3e-a3bc-d54d51c6f958
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+	measure 'Valor Cierre Año Anterior (txt)' = ```
+			
+			VAR v   = [Valor Cierre Año Anterior]
+			VAR sel = SELECTEDVALUE( Metricas[Metrica], "" )
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    sel = "Saldo",          FORMAT( v/1000000, "$#,##0 ""MM""" ),  -- Saldo en MM
+			    sel = "Tasa Ponderada", FORMAT( v/100, "0.00%" ),              -- Tasa como %
+			                             FORMAT( v, "#,0" )                    -- Resto: entero
+			)
+			
+			```
+		formatString: "\$#,0.00"
+		displayFolder: Comparativos
+		lineageTag: 5594988f-d2c2-4564-b144-5011f6fa4975
+
+	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+	measure 'Valor YTD (txt)' = ```
+			
+			VAR v   = [Valor YTD]   -- [Valor YTD] = [Valor Actual] - [Valor Cierre Año Anterior]
+			VAR sel = SELECTEDVALUE( Metricas[Metrica], "" )
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    sel = "Saldo",          FORMAT( v/1000000, "$#,##0 ""MM""" ),  -- Saldo en millones
+			    sel = "Tasa Ponderada", FORMAT( v/100, "0.00%" ),              -- Tasa como %
+			                             FORMAT( v, "#,0" )                    -- Resto: entero
+			)
+			
+			```
+		formatString: "\$#,0.00"
+		displayFolder: Comparativos
+		lineageTag: 40c80690-bdaf-4bca-a480-6da6ae1b8b04
+
+	/// [TODO: validar descripción con negocio] [confianza: baja]
+	measure 'Valor Meta' = ```
+			[Valor Cierre Año Anterior]*(1+[Porcentaje Target (Ayer)])
+			
+			
+			```
+		displayFolder: Medidas Primarias
+		formatString: $#,##0,, "MM"
+		lineageTag: 157b67d7-06e2-4091-8427-30b3439e83f9
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+	measure 'Valor Meta (txt)' = ```
+			
+			VAR v   = [Valor Meta]   -- [Valor Meta] = [Valor Cierre Año Anterior] * (1 + [Porcentaje Target (Ayer)])
+			VAR sel = SELECTEDVALUE( Metricas[Metrica], "" )
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    sel = "Saldo",          FORMAT( v/1000000, "$#,##0 ""MM""" ),
+			    sel = "Tasa Ponderada", FORMAT( v/100, "0.00%" ),
+			                             FORMAT( v, "#,0" )
+			)
+			
+			```
+		formatString: "\$#,0.00"
+		displayFolder: Medidas Primarias
+		lineageTag: 6099f958-e41c-4288-b617-1e6d52f91ccf
+
+	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+	measure 'Valor Métrica Seleccionada (txt)' = ```
+			
+			VAR v   = [Valor Métrica Seleccionada]
+			VAR sel = SELECTEDVALUE( Metricas[Metrica], "" )
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(v), BLANK(),
+			    sel = "Saldo",          FORMAT( v/1000000, "$#,##0 ""MM""" ),  -- Saldo en millones
+			    sel = "Tasa Ponderada", FORMAT( v/100, "0.00%" ),              -- Tasa en porcentaje
+			    sel = "Q Clientes",     FORMAT( v, "#,0" ),                    -- Clientes: entero
+			    sel = "Q Cuentas",      FORMAT( v, "#,0" ),                    -- Cuentas: entero
+			                             FORMAT( v, "#,0" )                    -- Cualquier otro
+			)
+			
+			```
+		formatString: "#,##0.00"
+		displayFolder: Sin categorizar
+		lineageTag: 90786b05-6a9f-4c1f-aaeb-ab34ffe1857a
+
+	partition '⚙ Medidas' = m
+		mode: import
+		queryGroup: Medidas
+		source =
+				let
+				    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Stub = _t]),
+				    #"Columnas quitadas" = Table.RemoveColumns(Origen,{"Stub"})
+				in
+				    #"Columnas quitadas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

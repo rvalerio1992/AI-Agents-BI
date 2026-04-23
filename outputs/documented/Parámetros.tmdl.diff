@@ -1,0 +1,166 @@
+--- original/Parámetros.tmdl+++ documented/Parámetros.tmdl@@ -1,134 +1,166 @@+/// Tabla de parámetros/filtros para control de visualización. [confianza: alta]
+ table Parámetros
+ 	isHidden
+ 	lineageTag: 3c1d9b46-17f2-4c51-8530-46b2047d3912
+ 
++	/// [TODO: validar descripción con negocio] [confianza: baja]
+ 	measure 'Titulo Reporte (Panel)' = ```
+ 			
+ 			"Reporte de Gestión Proactiva - Saldos Pasivos"
+ 			
+ 			```
+ 		isHidden
++		displayFolder: Etiquetas
+ 		lineageTag: 6188b0ef-7fd2-46f3-b0b8-460a8aecc778
+ 
+ 		changedProperty = IsHidden
+ 
++	/// [TODO: validar descripción con negocio] [confianza: baja]
+ 	measure 'Titulo Medida' = SELECTEDVALUE('Parámetros'[TituloParametro], "Título por defecto")
+ 		isHidden
++		displayFolder: Etiquetas
+ 		lineageTag: 43e70612-4d56-49f5-bac7-f0f99f34c2d4
+ 
+ 		changedProperty = IsHidden
+ 
++	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+ 	measure 'Titulo Gráfico Top 25' = ```
+ 			
+ 			"Top 25 Clientes - " & 
+ 			    SELECTEDVALUE('Parámetros'[TituloParametro], "Título por defecto")
+ 			```
+ 		isHidden
++		displayFolder: Etiquetas
+ 		lineageTag: c53bb2b7-77fb-449a-bae6-40ea091aa0d6
+ 
+ 		changedProperty = IsHidden
+ 
++	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+ 	measure 'Titulo Reporte (Exploración Profunda)' = ```
+ 			
+ 			"Exploración Profunda - " & 
+ 			    SELECTEDVALUE('Parámetros'[TituloParametro], "Título por defecto")
+ 			```
+ 		isHidden
++		displayFolder: Etiquetas
+ 		lineageTag: 56139c65-0018-4e6c-9aab-a56a026f4814
+ 
+ 		changedProperty = IsHidden
+ 
++	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+ 	measure 'Titulo Reporte (Exploración)' = ```
+ 			
+ 			"Exploración - " & 
+ 			    SELECTEDVALUE('Parámetros'[TituloParametro], "Título por defecto")
+ 			```
+ 		isHidden
++		displayFolder: Etiquetas
+ 		lineageTag: 502109b5-67c3-4d2a-9e98-eadf324bf588
+ 
+ 		changedProperty = IsHidden
+ 
++	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+ 	measure 'Titulo Reporte (Top Variaciones)' = ```
+ 			
+ 			"Principales Variaciones - " & 
+ 			    SELECTEDVALUE('Parámetros'[TituloParametro], "Título por defecto")
+ 			```
+ 		isHidden
++		displayFolder: Etiquetas
+ 		lineageTag: 4bbb6b00-143c-41d9-8f59-29dc79699279
+ 
+ 		changedProperty = IsHidden
+ 
++	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+ 	measure 'Titulo Gráfico (Tooltip)' = ```
+ 			
+ 			SELECTEDVALUE('Parámetros'[TituloParametro], "Título por defecto") & " en Millones de Dólares" 
+ 			```
+ 		isHidden
++		displayFolder: Etiquetas
+ 		lineageTag: 811afbff-76fe-4d10-85e5-cbd78b4f5776
+ 
+ 		changedProperty = IsHidden
+ 
++	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+ 	measure 'Titulo Gráfico (Segmentación Estrategica)' =
+ 			
+ 			SELECTEDVALUE('Parámetros'[TituloParametro], "Título por defecto") & " según Segmento Estrategico"
+ 		isHidden
++		displayFolder: Etiquetas
+ 		lineageTag: c94f60ca-d967-4f78-847a-fc58d8ba1c72
+ 
+ 		changedProperty = IsHidden
+ 
++	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+ 	measure 'Titulo Gráfico (Segmentación Operativa)' =
+ 			
+ 			SELECTEDVALUE('Parámetros'[TituloParametro], "Título por defecto") & " según Segmento Operativo"
+ 		isHidden
++		displayFolder: Etiquetas
+ 		lineageTag: 6aef51f3-e137-4e5b-ab50-6130ef6ad455
+ 
+ 		changedProperty = IsHidden
+ 
++	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+ 	measure 'Titulo Gráfico (Dirección)' =
+ 			
+ 			SELECTEDVALUE('Parámetros'[TituloParametro], "Título por defecto") & " según Dirección"
+ 		isHidden
++		displayFolder: Etiquetas
+ 		lineageTag: 422de00a-9b2b-436d-8c39-b2f87923ce19
+ 
+ 		changedProperty = IsHidden
+ 
++	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+ 	measure 'Titulo Gráfico (Rango Tasa)' =
+ 			
+ 			SELECTEDVALUE('Parámetros'[TituloParametro], "Título por defecto") & " según Rango Tasa"
+ 		isHidden
++		formatString: 0.00
++		displayFolder: Indicadores
+ 		lineageTag: e625df75-4f75-49de-a61c-9f8e3e8aa9d3
+ 
+ 		changedProperty = IsHidden
+ 
++	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+ 	measure 'Titulo Gráfico (Moneda)' =
+ 			
+ 			SELECTEDVALUE('Parámetros'[TituloParametro], "Título por defecto") & " según Moneda"
+ 		isHidden
++		displayFolder: Etiquetas
+ 		lineageTag: cefc09ae-eba9-4ad5-81ed-18c04ccb38b2
+ 
+ 		changedProperty = IsHidden
+ 
++	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+ 	measure 'Titulo Gráfico (Tipo Cliente)' =
+ 			
+ 			SELECTEDVALUE('Parámetros'[TituloParametro], "Título por defecto") & " según Tipo Cliente"
+ 		isHidden
++		displayFolder: Etiquetas
+ 		lineageTag: eda9b9af-0d70-4161-9d8b-16578bafa7e7
+ 
+ 		changedProperty = IsHidden
+ 
++	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+ 	measure 'Titulo Gráfico (Producto)' =
+ 			
+ 			SELECTEDVALUE('Parámetros'[TituloParametro], "Título por defecto") & " según Producto"
+ 		isHidden
++		displayFolder: Etiquetas
+ 		lineageTag: eda2ce67-2a9e-4a83-b042-452586a1d7c5
+ 
+ 		changedProperty = IsHidden
+ 
++	/// Texto formateado para mostrar en visualizaciones. [confianza: media]
+ 	measure 'Titulo Reporte (Tendencia)' = ```
+ 			
+ 			"Tendencia - " & 
+ 			    SELECTEDVALUE('Parámetros'[TituloParametro], "Título por defecto")
+ 			```
+ 		isHidden
++		displayFolder: Etiquetas
+ 		lineageTag: 27dca88c-13a0-4f84-94d0-f06a6f87eea5
+ 
+ 		changedProperty = IsHidden

@@ -50,6 +50,24 @@ Solo generás reportes en `outputs/audit/`.
 - `DIM_Fecha` marcada como fecha
 - Jerarquías definidas para dimensiones clave
 
+## Scoring Dual
+
+El agente produce **3 scores separados** para dar visibilidad clara:
+
+| Score | Qué mide | Reglas incluidas |
+|---|---|---|
+| 📐 **Estructural** | Si el modelo funciona correctamente | `DIM-FECHA-NOT-MARKED`, `MODEL-AUTO-DATETIME`, `NAMING-TABLE`, `DAX-USE-DIVIDE`, `REL-*` |
+| 📝 **Documentación** | Qué tan bien está descrito | `TABLE-DESCRIPTION`, `MEASURE-NO-DESCRIPTION`, `MEASURE-NO-FOLDER`, `MEASURE-NO-FORMAT`, `NAMING-TABLE-STYLE` |
+| 🎯 **Global** | Promedio ponderado: 70% estructura + 30% documentación | — |
+
+**Penalizaciones por severidad:**
+- 🔴 Crítico: -20 pts
+- ⚠️ Mejora: -5 pts
+- ℹ️ Observación: -1 pt
+- Score mínimo: 0
+
+**Por qué dos scores:** un modelo puede ser estructuralmente perfecto pero mal documentado, o viceversa. Un solo score oculta el matiz.
+
 ## Severidades
 
 - 🔴 **Crítico**: rompe funcionalidad, causa errores visibles, riesgo de datos incorrectos
@@ -69,17 +87,24 @@ Siempre producís dos archivos:
 {
   "audit_date": "2026-04-22",
   "project": "...",
+  "score_estructural": 47,
+  "score_documentacion": 0,
+  "score_global": 33,
   "summary": {
     "tables": 15,
     "measures": 87,
-    "critical": 3,
-    "improvements": 12,
-    "observations": 25
+    "structural_findings": 10,
+    "documentation_findings": 190,
+    "total_findings": 200,
+    "critical": 1,
+    "improvements": 55,
+    "observations": 144
   },
   "findings": [
     {
-      "id": "DQ-001",
+      "id": "SM-001",
       "severity": "critical",
+      "category": "estructural",
       "location": "tables/FACT_Ventas.tmdl:42",
       "rule": "DAX-NO-DIVIDE",
       "description": "División sin DIVIDE() puede causar error",
@@ -100,5 +125,6 @@ Siempre producís dos archivos:
 ## Handoff
 
 Cuando termines la auditoría, sugerile al usuario:
-- Para aplicar fixes automatizables → usar el agente `DAX Reviewer` (modo read-write)
-- Para revisar reportes PBIR → proceso manual por ahora
+- Para aplicar fixes **estructurales** (DAX, relaciones) → usar `DAX Reviewer` (read-write con confirmación)
+- Para corregir **documentación masiva** (formats, folders, descriptions) → usar `Model Documenter` (read-write seguro, sin tocar nombres ni lógica)
+- Para revisar reportes PBIR → proceso manual por ahora (fase 2)

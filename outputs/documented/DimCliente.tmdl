@@ -1,0 +1,66 @@
+/// Tabla de dimensión para Cliente. [TODO: validar con negocio] [confianza: media]
+table DimCliente
+	lineageTag: 977da1a6-854b-45f1-a289-eff5a5ca7cf0
+
+	column COD_CLIENTE
+		dataType: string
+		lineageTag: e31d65fb-6d16-43d7-a462-4adf42714195
+		summarizeBy: none
+		sourceColumn: COD_CLIENTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column NOMBRE
+		dataType: string
+		lineageTag: 3288112c-b196-4b39-a6c2-7462b5a42955
+		summarizeBy: none
+		sourceColumn: NOMBRE
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_CLIENTE
+		dataType: string
+		lineageTag: 55e54494-37c0-4381-883f-7d19370c8222
+		summarizeBy: none
+		sourceColumn: TIPO_CLIENTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column SEGMENTACION_ESTRATEGICA
+		dataType: string
+		lineageTag: adab4638-5415-431a-9e99-8532ba82ed41
+		summarizeBy: none
+		sourceColumn: SEGMENTACION_ESTRATEGICA
+
+		annotation SummarizationSetBy = Automatic
+
+	column SEGMENTACION_OPERATIVA
+		dataType: string
+		lineageTag: a6db3f35-e7dd-4683-ab9a-70d97cd00715
+		summarizeBy: none
+		sourceColumn: SEGMENTACION_OPERATIVA
+
+		annotation SummarizationSetBy = Automatic
+
+	column GERENCIA
+		dataType: string
+		lineageTag: 0070e85b-13e4-4211-86fa-75c6d4b1f792
+		summarizeBy: none
+		sourceColumn: GERENCIA
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimCliente = m
+		mode: import
+		queryGroup: Dimensiones
+		source =
+				let
+				   // Data Steward: Nancy Rebeca García Ureña
+				   Source = Sql.Database("synw-modeling-prod-westus2-001-ondemand.sql.azuresynapse.net", "gold", [Query="SELECT #(lf)    COD_CLIENTE, #(lf)    NOMBRE,#(lf)    TIPO_CLIENTE,#(lf)    SEGMENTACION_ESTRATEGICA,#(lf)    SEGMENTACION_OPERATIVA,#(lf)    GERENCIA#(lf)FROM dbo.masteranalytics#(lf)WHERE FEC_CORTE = (#(lf)        SELECT MAX(FEC_CORTE) #(lf)        FROM dbo.masteranalytics      -- siempre trae la fecha más reciente#(lf))#(lf)  AND COD_CLIENTE <> 'SIN COD_CLIENTE';#(lf)"])
+				in
+				  Source
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

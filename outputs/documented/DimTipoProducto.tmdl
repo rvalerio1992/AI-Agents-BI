@@ -1,0 +1,110 @@
+/// Tabla de dimensión para TipoProducto. [TODO: validar con negocio] [confianza: media]
+table DimTipoProducto
+	lineageTag: 6bf851f5-e3a4-48ab-8808-11980f9cf8c1
+
+	column COD_TIPO_PRODUCTO
+		dataType: string
+		lineageTag: cf598e0f-3ef0-493f-aefe-ed39b81fdf96
+		summarizeBy: none
+		sourceColumn: COD_TIPO_PRODUCTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column NOM_PRODUCTO
+		dataType: string
+		lineageTag: 24d36d74-e8af-4af2-89b2-37180c24bff7
+		summarizeBy: none
+		sourceColumn: NOM_PRODUCTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column DESC_PRODUCTO
+		dataType: string
+		lineageTag: 2b0b0a2c-62ad-4f41-a696-0fe2ca920d33
+		summarizeBy: none
+		sourceColumn: DESC_PRODUCTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_PRODUCTO
+		dataType: string
+		lineageTag: 07da4d80-a742-4166-b02d-24a2bd1e3637
+		summarizeBy: none
+		sourceColumn: TIPO_PRODUCTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_PRODUCTO_CORE
+		dataType: string
+		lineageTag: 6d1df800-46d5-45aa-8df3-0c020a97b773
+		summarizeBy: none
+		sourceColumn: TIPO_PRODUCTO_CORE
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_NECESIDAD
+		dataType: string
+		lineageTag: 4addfbeb-a258-4e1a-8859-a2072bcf7426
+		summarizeBy: none
+		sourceColumn: TIPO_NECESIDAD
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRODUCTO_CORE_FLAG
+		dataType: string
+		lineageTag: 5bc10916-3ebd-4b25-99ac-551c36062762
+		summarizeBy: none
+		sourceColumn: PRODUCTO_CORE_FLAG
+
+		annotation SummarizationSetBy = Automatic
+
+	column VERDE_FLAG
+		dataType: string
+		lineageTag: 95258c60-067d-464b-9417-a0603f0c8f34
+		summarizeBy: none
+		sourceColumn: VERDE_FLAG
+
+		annotation SummarizationSetBy = Automatic
+
+	column TIPO_SALDO
+		dataType: string
+		lineageTag: ce10dad0-b69b-4368-829e-b4ea615da288
+		summarizeBy: none
+		sourceColumn: TIPO_SALDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column SUBTIPO_PRODUCTO
+		dataType: string
+		lineageTag: f8a06029-08bc-40f4-9823-b54ab59b69f6
+		summarizeBy: none
+		sourceColumn: SUBTIPO_PRODUCTO
+		sortByColumn: ORDEN
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column ORDEN
+		dataType: int64
+		formatString: 0
+		lineageTag: 0eb5256a-6880-4edb-a0d6-d655319a5852
+		summarizeBy: none
+		sourceColumn: ORDEN
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimTipoProducto = m
+		mode: import
+		queryGroup: Dimensiones
+		source =
+				let
+				    // Data Steward: Nancy Rebeca García Ureña
+				    Source = Sql.Database("synw-modeling-prod-westus2-001-ondemand.sql.azuresynapse.net", "gold", [Query="#(lf)WITH base AS ( #(lf)#(lf)    SELECT #(lf)#(lf)        COD_TIPO_PRODUCTO, #(lf)#(lf)        NOM_PRODUCTO, #(lf)#(lf)        CASE #(lf)#(lf)            WHEN COD_TIPO_PRODUCTO IN ('CE_056','CE_057') THEN 'CUENTA ALTO RENDIMIENTO' #(lf)#(lf)            ELSE DESC_PRODUCTO #(lf)#(lf)        END AS DESC_PRODUCTO, #(lf)#(lf)        TIPO_PRODUCTO AS TIPO_PRODUCTO_ORIG, #(lf)#(lf)        TIPO_PRODUCTO_CORE, #(lf)#(lf)        TIPO_NECESIDAD, #(lf)#(lf)        PRODUCTO_CORE_FLAG, #(lf)#(lf)        VERDE_FLAG, #(lf)#(lf)        CASE #(lf)#(lf)            WHEN LEFT(COD_TIPO_PRODUCTO, 3) IN ('CE_', 'CDI') THEN 'SALDO PASIVO' #(lf)#(lf)            WHEN LEFT(COD_TIPO_PRODUCTO, 3) IN ('PR_', 'TC_', 'XF_') THEN 'SALDO ACTIVO' #(lf)#(lf)            ELSE 'NO APLICA' #(lf)#(lf)        END AS TIPO_SALDO #(lf)#(lf)    FROM dbo.dimtipoproducto #(lf)#(lf)), deriv AS ( #(lf)#(lf)    SELECT #(lf)#(lf)        COD_TIPO_PRODUCTO, #(lf)#(lf)        NOM_PRODUCTO, #(lf)#(lf)        DESC_PRODUCTO, #(lf)#(lf)        TIPO_PRODUCTO_ORIG, #(lf)#(lf)        TIPO_PRODUCTO_CORE, #(lf)#(lf)        TIPO_NECESIDAD, #(lf)#(lf)        PRODUCTO_CORE_FLAG, #(lf)#(lf)        VERDE_FLAG, #(lf)#(lf)        TIPO_SALDO, #(lf)#(lf)        CASE #(lf)#(lf)            WHEN LEFT(COD_TIPO_PRODUCTO, 3) IN ('TC_', 'XF_') THEN 'TARJETA DE CREDITO' #(lf)#(lf)            WHEN LEFT(COD_TIPO_PRODUCTO, 3) = 'PR_' THEN 'CREDITOS' #(lf)#(lf)            ELSE UPPER(TIPO_PRODUCTO_ORIG) #(lf)#(lf)        END AS TIPO_PRODUCTO_STEP, #(lf)#(lf)        CASE #(lf)#(lf)            WHEN COD_TIPO_PRODUCTO IN ('CE_056','CE_057') THEN 'ALTO RENDIMIENTO' #(lf)#(lf)            WHEN LEFT(COD_TIPO_PRODUCTO, 3) = 'CDI' THEN #(lf)#(lf)                CASE #(lf)#(lf)                    WHEN DESC_PRODUCTO COLLATE Latin1_General_CI_AI LIKE '%DESMATERIALIZADOS%' THEN 'DESMATERIALIZADOS' #(lf)#(lf)                    WHEN DESC_PRODUCTO COLLATE Latin1_General_CI_AI LIKE '%EMISIONES%' THEN 'EMISIONES SUBORDINADOS' #(lf)#(lf)                    WHEN DESC_PRODUCTO COLLATE Latin1_General_CI_AI LIKE '%MACROTITULOS%' THEN 'MACROTITULOS' #(lf)#(lf)                    ELSE 'OTROS' #(lf)#(lf)                END #(lf)#(lf)            ELSE TIPO_PRODUCTO_ORIG #(lf)#(lf)        END AS SUBTIPO_PRODUCTO_STEP #(lf)#(lf)    FROM base #(lf)#(lf)), final_ AS ( #(lf)#(lf)    SELECT #(lf)#(lf)        COD_TIPO_PRODUCTO, #(lf)#(lf)        NOM_PRODUCTO, #(lf)#(lf)        DESC_PRODUCTO, #(lf)#(lf)        /* TIPO_PRODUCTO final con reemplazos */ #(lf)#(lf)        CASE #(lf)#(lf)            WHEN TIPO_PRODUCTO_STEP = 'PLAN METAS' THEN 'CUENTA DE EFECTIVO' #(lf)#(lf)            WHEN TIPO_PRODUCTO_STEP IN ('CREDITO HIPOTECARIO','CREDITO PRENDARIO','CREDITO OTROS') THEN 'CREDITO' #(lf)#(lf)            ELSE TIPO_PRODUCTO_STEP #(lf)#(lf)        END AS TIPO_PRODUCTO, #(lf)#(lf)        /* SUBTIPO_PRODUCTO final con reemplazos */ #(lf)#(lf)        CASE #(lf)#(lf)            WHEN SUBTIPO_PRODUCTO_STEP = 'CUENTA DE EFECTIVO' THEN 'CORRIENTE/AHORRO' #(lf)#(lf)            WHEN SUBTIPO_PRODUCTO_STEP = 'TARJETA DE CREDITO' THEN 'REVOLVENTE' #(lf)#(lf)            ELSE SUBTIPO_PRODUCTO_STEP #(lf)#(lf)        END AS SUBTIPO_PRODUCTO, #(lf)#(lf)        TIPO_PRODUCTO_CORE, #(lf)#(lf)        TIPO_NECESIDAD, #(lf)#(lf)        PRODUCTO_CORE_FLAG, #(lf)#(lf)        VERDE_FLAG, #(lf)#(lf)        TIPO_SALDO #(lf)#(lf)    FROM deriv #(lf)#(lf)) #(lf)#(lf)SELECT #(lf)#(lf)    COD_TIPO_PRODUCTO, #(lf)#(lf)    NOM_PRODUCTO, #(lf)#(lf)    DESC_PRODUCTO, #(lf)#(lf)    TIPO_PRODUCTO, #(lf)#(lf)    SUBTIPO_PRODUCTO, #(lf)#(lf)    TIPO_PRODUCTO_CORE, #(lf)#(lf)    TIPO_NECESIDAD, #(lf)#(lf)    PRODUCTO_CORE_FLAG, #(lf)#(lf)    VERDE_FLAG, #(lf)#(lf)    TIPO_SALDO, #(lf)#(lf)    CASE #(lf)#(lf)        WHEN SUBTIPO_PRODUCTO = 'EMISIONES SUBORDINADOS' THEN 5 #(lf)#(lf)        WHEN SUBTIPO_PRODUCTO = 'MACROTITULOS' THEN 6 #(lf)#(lf)        WHEN SUBTIPO_PRODUCTO = 'OTROS' THEN 7 #(lf)#(lf)        WHEN SUBTIPO_PRODUCTO = 'DESMATERIALIZADOS' THEN 4 #(lf)#(lf)        WHEN SUBTIPO_PRODUCTO = 'PLAN METAS' THEN 3 #(lf)#(lf)        WHEN SUBTIPO_PRODUCTO = 'ALTO RENDIMIENTO' THEN 2 #(lf)#(lf)        WHEN SUBTIPO_PRODUCTO = 'CORRIENTE/AHORRO' THEN 1 #(lf)#(lf)        WHEN SUBTIPO_PRODUCTO = 'SBD' THEN 14 #(lf)#(lf)        WHEN SUBTIPO_PRODUCTO = 'COMERCIAL' THEN 10 #(lf)#(lf)        WHEN SUBTIPO_PRODUCTO = 'NAP Y MICROCREDITOS' THEN 16 #(lf)#(lf)        WHEN SUBTIPO_PRODUCTO = 'EXTRA FINANCIAMIENTOS' THEN 9 #(lf)#(lf)        WHEN SUBTIPO_PRODUCTO = 'REVOLVENTE' THEN 8 #(lf)#(lf)        WHEN SUBTIPO_PRODUCTO = 'PRENDARIO' THEN 13 #(lf)#(lf)        WHEN SUBTIPO_PRODUCTO = 'HIPOTECARIO' THEN 12 #(lf)#(lf)        WHEN SUBTIPO_PRODUCTO = 'PERSONAL PREFERENTE' THEN 17 #(lf)#(lf)        WHEN SUBTIPO_PRODUCTO = 'OTROS (FACTORING & PSA)' THEN 15 #(lf)#(lf)        WHEN SUBTIPO_PRODUCTO = 'EMPRESARIAL' THEN 11 #(lf)#(lf)        ELSE 999 #(lf)#(lf)    END AS ORDEN #(lf)#(lf)FROM final_; #(lf)#(lf)"])
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

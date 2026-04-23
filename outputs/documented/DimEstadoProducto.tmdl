@@ -1,0 +1,34 @@
+/// Tabla de dimensión para EstadoProducto. [TODO: validar con negocio] [confianza: media]
+table DimEstadoProducto
+	lineageTag: 8aa714f0-8602-4269-9506-3d760a889301
+
+	column COD_ESTADO
+		dataType: string
+		lineageTag: f717ddf7-87ff-458d-9273-76735b38b6cb
+		summarizeBy: none
+		sourceColumn: COD_ESTADO
+
+		annotation SummarizationSetBy = Automatic
+
+	column ESTADO
+		dataType: string
+		lineageTag: e1ffe3e6-988c-435a-9042-ad4f2ac7b10a
+		summarizeBy: none
+		sourceColumn: ESTADO
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimEstadoProducto = m
+		mode: import
+		queryGroup: Dimensiones
+		source =
+				let
+				   // Data Steward: Nancy Rebeca García Ureña
+				   Source = Sql.Database("synw-modeling-prod-westus2-001-ondemand.sql.azuresynapse.net", "gold", [Query="SELECT #(lf)    COD_ESTADO,#(lf)    ESTADO#(lf)FROM #(lf)    dbo.dimestadoproducto"])
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+
