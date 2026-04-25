@@ -1,0 +1,59 @@
+// ═══════════════════════════════════════════════════════════
+// HTML_Semaforo_Tasa_Ponderada
+// Template: semaforo (html-dax-patterns #7)
+// Generado por: html-measure-generator
+// Fecha: 2026-04-25
+// ═══════════════════════════════════════════════════════════
+// Indicador rojo/naranja/verde para Tasa Ponderada según umbrales:
+//   ≤8%   → verde corporativo (saludable)
+//   ≤12%  → naranja (atención)
+//   >12%  → rojo (crítico)
+// AJUSTAR UMBRALES según política institucional.
+
+HTML_Semaforo_Tasa_Ponderada = 
+VAR _Tasa = [Tasa Ponderada]
+
+// Colores Promerica
+VAR _VerdeOK = "#006338"
+VAR _NaranjaAlerta = "#C35A00"
+VAR _RojoKO = "#A20000"
+VAR _GrisLabel = "#A6A6A6"
+
+// Umbrales (ajustar según política)
+VAR _UmbralOk = 0.08
+VAR _UmbralAtencion = 0.12
+
+VAR _Color = 
+  SWITCH(TRUE(),
+    _Tasa <= _UmbralOk,       _VerdeOK,
+    _Tasa <= _UmbralAtencion, _NaranjaAlerta,
+    _RojoKO
+  )
+VAR _Label = 
+  SWITCH(TRUE(),
+    _Tasa <= _UmbralOk,       "Saludable",
+    _Tasa <= _UmbralAtencion, "Atención",
+    "Crítico"
+  )
+
+RETURN
+  "<div style='font-family:Segoe UI; display:flex; align-items:center; " &
+    "gap:14px; padding:14px 16px; background:#FFFFFF; border-radius:8px; " &
+    "box-shadow:0 2px 4px rgba(0,0,0,0.08); max-width:280px;'>" &
+  
+  // Círculo del semáforo con glow sutil
+  "<div style='width:36px; height:36px; border-radius:50%; flex-shrink:0; " &
+    "background:" & _Color & "; " &
+    "box-shadow:0 0 16px " & _Color & "55;'></div>" &
+  
+  // Info derecha
+  "<div>" &
+    "<div style='font-size:11px; color:" & _GrisLabel & "; " &
+      "text-transform:uppercase; letter-spacing:0.5px;'>Tasa Ponderada</div>" &
+    "<div style='font-size:18px; font-weight:700; color:#000000; margin-top:2px;'>" & 
+      FORMAT(_Tasa, "0.00%") & "</div>" &
+    "<div style='font-size:11px; color:" & _Color & "; font-weight:600; margin-top:2px;'>" & 
+      _Label & "</div>" &
+  "</div>" &
+  
+  "</div>"

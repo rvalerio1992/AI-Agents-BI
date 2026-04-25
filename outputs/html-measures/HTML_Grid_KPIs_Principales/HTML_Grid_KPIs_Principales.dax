@@ -1,0 +1,67 @@
+// ═══════════════════════════════════════════════════════════
+// HTML_Grid_KPIs_Principales
+// Template: kpi-grid (html-dax-patterns #2)
+// Generado por: html-measure-generator
+// Fecha: 2026-04-25
+// ═══════════════════════════════════════════════════════════
+// Grilla horizontal con 4 KPIs principales: Saldo, Clientes,
+// Cuentas y Tasa Ponderada. Cada card con accent de color distinto.
+// Responsive: se acomoda en flex; min-width 140px por card.
+
+HTML_Grid_KPIs_Principales = 
+VAR _Saldo = [Saldo]
+VAR _Clientes = [Q Clientes]
+VAR _Cuentas = [Q Cuentas]
+VAR _Tasa = [Tasa Ponderada]
+
+// Colores Promerica (uno distinto por card)
+VAR _Verde = "#006338"
+VAR _Azul = "#003E89"
+VAR _VerdeLima = "#61BF1A"
+VAR _Cian = "#69C7C7"
+VAR _GrisLabel = "#A6A6A6"
+
+RETURN
+  "<div style='display:flex; gap:12px; flex-wrap:wrap; font-family:Segoe UI;'>" &
+  
+  // Card 1 — Saldo (verde corporativo)
+  "<div style='flex:1; min-width:140px; padding:12px; border-radius:8px; " &
+    "background:#FFFFFF; border-left:4px solid " & _Verde & "; " &
+    "box-shadow:0 2px 4px rgba(0,0,0,0.08);'>" &
+    "<div style='font-size:11px; color:" & _GrisLabel & "; " &
+      "text-transform:uppercase; letter-spacing:0.5px;'>Saldo</div>" &
+    "<div style='font-size:20px; font-weight:700; color:#000000; margin-top:4px;'>" & 
+      FORMAT(_Saldo, "$#,0") & "</div>" &
+  "</div>" &
+  
+  // Card 2 — Clientes (azul corporativo)
+  "<div style='flex:1; min-width:140px; padding:12px; border-radius:8px; " &
+    "background:#FFFFFF; border-left:4px solid " & _Azul & "; " &
+    "box-shadow:0 2px 4px rgba(0,0,0,0.08);'>" &
+    "<div style='font-size:11px; color:" & _GrisLabel & "; " &
+      "text-transform:uppercase; letter-spacing:0.5px;'>Clientes</div>" &
+    "<div style='font-size:20px; font-weight:700; color:#000000; margin-top:4px;'>" & 
+      FORMAT(_Clientes, "#,0") & "</div>" &
+  "</div>" &
+  
+  // Card 3 — Cuentas (verde brand)
+  "<div style='flex:1; min-width:140px; padding:12px; border-radius:8px; " &
+    "background:#FFFFFF; border-left:4px solid " & _VerdeLima & "; " &
+    "box-shadow:0 2px 4px rgba(0,0,0,0.08);'>" &
+    "<div style='font-size:11px; color:" & _GrisLabel & "; " &
+      "text-transform:uppercase; letter-spacing:0.5px;'>Cuentas</div>" &
+    "<div style='font-size:20px; font-weight:700; color:#000000; margin-top:4px;'>" & 
+      FORMAT(_Cuentas, "#,0") & "</div>" &
+  "</div>" &
+  
+  // Card 4 — Tasa Ponderada (cian)
+  "<div style='flex:1; min-width:140px; padding:12px; border-radius:8px; " &
+    "background:#FFFFFF; border-left:4px solid " & _Cian & "; " &
+    "box-shadow:0 2px 4px rgba(0,0,0,0.08);'>" &
+    "<div style='font-size:11px; color:" & _GrisLabel & "; " &
+      "text-transform:uppercase; letter-spacing:0.5px;'>Tasa Ponderada</div>" &
+    "<div style='font-size:20px; font-weight:700; color:#000000; margin-top:4px;'>" & 
+      FORMAT(_Tasa, "0.00%") & "</div>" &
+  "</div>" &
+  
+  "</div>"

@@ -1,0 +1,60 @@
+// ═══════════════════════════════════════════════════════════
+// HTML_Meta_Avance_VsTarget
+// Template: comparativo-meta (html-dax-patterns #3)
+// Generado por: html-measure-generator
+// Fecha: 2026-04-25
+// ═══════════════════════════════════════════════════════════
+// Muestra avance vs meta con progress bar y color por umbrales:
+//   ≥100% verde corporativo, ≥80% verde brand,
+//   ≥50% naranja, <50% rojo.
+
+HTML_Meta_Avance_VsTarget = 
+VAR _Actual = [Valor Actual]
+VAR _Meta = [Valor Meta]
+VAR _Pct = [1_Complete_%]
+VAR _PctCapped = MIN(_Pct, 1)  // cap visual en 100%
+
+// Colores Promerica
+VAR _VerdeOK = "#006338"
+VAR _VerdeBrand = "#61BF1A"
+VAR _NaranjaAlerta = "#C35A00"
+VAR _RojoKO = "#A20000"
+VAR _GrisLabel = "#A6A6A6"
+
+// Color según avance
+VAR _Color = 
+  SWITCH(TRUE(),
+    _Pct >= 1,    _VerdeOK,
+    _Pct >= 0.8,  _VerdeBrand,
+    _Pct >= 0.5,  _NaranjaAlerta,
+    _RojoKO
+  )
+
+RETURN
+  "<div style='font-family:Segoe UI; padding:12px; " &
+    "background:#FFFFFF; border-radius:8px; max-width:320px; " &
+    "box-shadow:0 2px 4px rgba(0,0,0,0.08);'>" &
+  
+  // Header: label + porcentaje
+  "<div style='display:flex; justify-content:space-between; margin-bottom:6px;'>" &
+    "<span style='font-size:11px; color:" & _GrisLabel & "; " &
+      "text-transform:uppercase; letter-spacing:0.5px;'>Avance vs Meta</span>" &
+    "<span style='font-size:11px; color:" & _Color & "; font-weight:600;'>" &
+      FORMAT(_Pct, "0.0%") & "</span>" &
+  "</div>" &
+  
+  // Progress bar
+  "<div style='height:8px; background:#F0F0F0; border-radius:4px; " &
+    "overflow:hidden; margin:6px 0;'>" &
+    "<div style='height:100%; width:" & FORMAT(_PctCapped, "0.0%") & "; " &
+      "background:" & _Color & ";'></div>" &
+  "</div>" &
+  
+  // Footer: actual / meta
+  "<div style='display:flex; justify-content:space-between; " &
+    "font-size:11px; color:" & _GrisLabel & "; margin-top:6px;'>" &
+    "<span style='font-weight:600; color:#000000;'>" & FORMAT(_Actual, "$#,0") & "</span>" &
+    "<span>Meta: " & FORMAT(_Meta, "$#,0") & "</span>" &
+  "</div>" &
+  
+  "</div>"
